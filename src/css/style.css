@@ -19,6 +19,8 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: rgb(33, 33, 33);
+  color: rgb(210, 210, 210);
 }
 
 img, picture, video, canvas, svg {
@@ -44,7 +46,7 @@ h1, h2, h3, h4, h5, h6 {
 
 header {
     width: 100%;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(133, 33, 33);
     text-align: center;
     padding-bottom: 20px;
 }
@@ -56,12 +58,13 @@ main {
 
 .sidebar,
 .content {
-    border: 1px solid black;
     padding: 20px;
+    background-color: rgb(44, 44, 44);
 }
 
 .sidebar {
     flex: 1 1 25%;
+    border-right: 1px solid rgb(133, 33, 33);
 }
 
 .content {
@@ -70,7 +73,7 @@ main {
 
 footer {
     width: 100%;
-    border-top: 1px solid black;
+    border-top: 1px solid rgb(133, 33, 33);
     text-align: center;
     padding: 10px;
 }
