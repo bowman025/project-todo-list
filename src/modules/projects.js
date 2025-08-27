@@ -1,12 +1,8 @@
-import { exampleItemOne, exampleItemTwo } from "./items.js";
-
+class Project {
+    constructor(title) {
+        this.title = title,
+        this.items = []
+    };
+}
 const projectList = [];
-const addProject = (newProject) => projectList.push(newProject);
-const removeProject = (projectIndex) => projectList.splice(projectIndex, 1);
-const addItem = (project, newItem) => project.push(newItem);
-const removeItem = (project, itemIndex) => project.splice(itemIndex, 1);
-
-const exampleProject = [exampleItemOne, exampleItemTwo];
-addProject(exampleProject);
-
-export { projectList, addProject, removeProject, addItem, removeItem };
+export { projectList, Project };
