@@ -1,10 +1,10 @@
-/* import { createItems, Item, exampleItemOne, exampleItemTwo } from "./modules/items.js";
-import { projectList, addProject, removeProject, addItem, removeItem } from "./modules/projects.js"; */
-
 export const displayProject = (project) => {
     const content = document.querySelector(".content");
     const projectCard = document.createElement("div");
     projectCard.classList.add("project-card");
+    const projectTitle = document.createElement("h2");
+    projectTitle.classList.add("project-title");
+    projectTitle.textContent = project.title;
     project.items.forEach(item => {
         const projectItem = document.createElement("ul");
         projectItem.classList.add("project-item", `project-item-${project.items.indexOf(item)+1}`);
@@ -23,5 +23,5 @@ export const displayProject = (project) => {
         projectItem.append(projectItemTitle, projectItemDesc, ProjectItemDate, projectItemPriority, projectItemNotes, ProjectItemChecked);
         projectCard.appendChild(projectItem);
     });
-    content.replaceChildren(projectCard);
+    content.replaceChildren(projectTitle, projectCard);
 }

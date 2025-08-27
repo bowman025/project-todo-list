@@ -25,8 +25,8 @@ body {
   width: 100vw;
   height: 100vh;
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: auto 1fr;
   background-color: var(--primary-bg-color);
   color: var(--font-color);
 }
@@ -56,56 +56,80 @@ ul {
   list-style-type: none;
 }
 
-header {
-    width: 100%;
-    z-index: 999;
-    border-bottom: 1px solid var(--border-color);
-    text-align: center;
-    padding-bottom: 20px;
-}
-
-main {
-    display: flex;
-    flex: 1 1 100%;
-}
-
-.sidebar,
-.content {
-    padding: 20px;
-    background-color: var(--secondary-bg-color);
-}
-
 .sidebar {
-    flex: 1 1 25%;
-    border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-right: 1px solid var(--border-color);
+}
+
+header {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+  
 }
 
 .side-list {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   padding: 10px;
 }
 
-.side-item {
-  margin: 10px 0px;
+.side-input {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.side-item,
+#side-input-box,
+.side-input-button {
+  margin: 10px 5px;
   padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 10px;
-  background-color: var(--secondary-bg-color);
   color: var(--font-color);
+  background-color: var(--primary-bg-color);
   transition: transform 300ms ease-out;
 }
 
-.side-item:hover {
+.side-item:hover,
+.side-input-button:hover {
   cursor: pointer;
-  background-color: var(--primary-bg-color);
+  background-color: var(--secondary-bg-color);
   transform: scale(1.08);
 }
 
+#side-input-box:focus {
+  outline:  none;
+  background-color: var(--secondary-bg-color);
+  transform: scale(1.05);
+}
+
+footer {
+  width: 100%;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  padding: 10px;
+}
+
+footer > p > a {
+  color: var(--font-color);
+}
+
+.main {
+  display: flex;
+  padding: 20px;
+}
+
 .content {
-    flex: 1 1 75%;
-    display: flex;
-    flex-direction: column;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .project-item {
@@ -120,11 +144,4 @@ main {
   cursor: pointer;
   background-color: var(--primary-bg-color);
   transform: scale(1.02);
-}
-
-footer {
-    width: 100%;
-    border-top: 1px solid var(--border-color);
-    text-align: center;
-    padding: 10px;
 }

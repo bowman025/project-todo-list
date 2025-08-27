@@ -4,5 +4,12 @@ class Project {
         this.items = []
     };
 }
+
 const projectList = [];
-export { projectList, Project };
+
+const addProject = (title) => {
+    const newProject = new Project(title);
+    projectList.push(newProject);
+}
+
+export { projectList, Project, addProject };
