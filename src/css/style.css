@@ -2,6 +2,7 @@
   --primary-bg-color: rgb(33, 33, 33);
   --secondary-bg-color: rgb(44, 44, 44);
   --border-color: rgb(133, 33, 33);
+  --secondary-border-color: rgb(99, 24, 24);
   --font-color: rgb(210, 210, 210);
 }
 
@@ -63,19 +64,17 @@ ul {
   border-right: 1px solid var(--border-color);
 }
 
-header {
+.header {
   margin-bottom: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid var(--border-color);
   text-align: center;
-  
 }
 
 .side-list {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  padding: 10px;
 }
 
 .side-input {
@@ -97,8 +96,7 @@ header {
   transition: transform 300ms ease-out;
 }
 
-.side-item:hover,
-.side-input-button:hover {
+.side-item:hover {
   cursor: pointer;
   background-color: var(--secondary-bg-color);
   transform: scale(1.08);
@@ -106,18 +104,32 @@ header {
 
 #side-input-box:focus {
   outline:  none;
-  background-color: var(--secondary-bg-color);
   transform: scale(1.05);
 }
 
-footer {
-  width: 100%;
-  border-top: 1px solid var(--border-color);
-  text-align: center;
-  padding: 10px;
+.side-input-button {
+  background-color: var(--secondary-border-color);
 }
 
-footer > p > a {
+.side-input-button:hover {
+  cursor: pointer;
+  background-color: var(--border-color);
+  transform: scale(1.02);
+}
+
+.footer {
+  width: 100%;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  
+}
+
+.footer-text {
+  margin-top: 10px;
+}
+
+.footer > p > a {
   color: var(--font-color);
 }
 
@@ -132,16 +144,93 @@ footer > p > a {
   flex-direction: column;
 }
 
-.project-item {
-  padding: 20px;
-  margin: 20px;
+.project-title {
+  margin-bottom: 20px;
+}
+
+.project-item,
+.project-item-button {
   border: 1px solid var(--border-color);
   border-radius: 10px;
+}
+
+.project-item {
+  padding: 20px;
+  margin-bottom: 20px;
   transition: transform 300ms ease-out;
 }
 
 .project-item:hover {
-  cursor: pointer;
   background-color: var(--primary-bg-color);
   transform: scale(1.02);
+}
+
+.project-item-button {
+  padding: 10px;
+  margin: 0px 20px;
+  align-self: center;
+  color: var(--font-color);
+  background-color: var(--secondary-border-color);
+}
+
+.project-item-button:hover {
+  cursor: pointer;
+  background-color: var(--border-color);
+  transform: scale(1.02);
+}
+
+.new-item-dialog {
+  padding: 20px;
+  margin: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--primary-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+}
+
+::backdrop {
+  background-color: black;
+  opacity: 0.6;
+}
+
+.new-item-form {
+  color: var(--font-color);
+}
+
+.new-item-form input,
+.new-item-form select,
+.new-item-form textarea {
+  width: 100%;
+  background-color: var(--font-color);
+}
+
+.new-item-form input:focus,
+.new-item-form select:focus,
+.new-item-form textarea:focus {
+  outline: 1px solid var(--border-color);
+}
+
+.new-item-form > div {
+  margin: 15px;
+}
+
+.input-submit {
+  text-align: center;
+}
+
+.input-submit-button {
+  color: var(--font-color);
+  background-color: var(--secondary-border-color);
+  padding: 8px 32px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  text-align: center;
+}
+
+.input-submit-button:hover {
+  cursor: pointer;
+  background-color: var(--border-color);
 }

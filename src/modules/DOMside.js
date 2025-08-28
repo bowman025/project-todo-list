@@ -4,6 +4,10 @@ import { addProject, projectList } from "./projects.js";
 const sideList = document.querySelector(".side-list");
 
 const displayList = (projectList) => {
+    const myProjects = document.createElement("h2");
+    myProjects.classList.add("side-my-projects");
+    myProjects.textContent = "My Projects";
+    sideList.appendChild(myProjects);
     projectList.forEach(project => {
         const listItem = document.createElement("button");
         listItem.classList.add("side-item");
@@ -45,7 +49,7 @@ const addProjectToList = () => {
         emptyList();
         displayList(projectList);
         console.log(projectList);
-    })
+    });
 }
 
 export { displayList, addProjectToList };
