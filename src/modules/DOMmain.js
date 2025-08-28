@@ -109,7 +109,6 @@ export const displayProject = (project) => {
         projectItem.append(projectItemTitle, projectItemDesc, ProjectItemDate, projectItemPriority, projectItemNotes, ProjectItemChecked);
         projectCard.appendChild(projectItem);
     });
-    addNewItem();
     }
     const itemButton = document.createElement("button");
     itemButton.classList.add("project-item-button");
@@ -118,13 +117,12 @@ export const displayProject = (project) => {
     const addNewItem = () => {
         itemButton.addEventListener("click", () => {
         content.appendChild(newDialog);
+        newDialog.close();
+        newForm.reset();
         newDialog.showModal();
         });
         newDialog.addEventListener("close", (e) => {
         console.log("Closed.");
-        if(content.contains(newDialog)) {
-        content.removeChild(newDialog);
-        }
         });
         newButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -138,10 +136,7 @@ export const displayProject = (project) => {
         projectList[index].items.push(item);
         removeList();
         displayProjectItems();
-        if(content.contains(newDialog)) {
-        content.removeChild(newDialog);
-        }
-        newForm.reset();
+        newDialog.close();
         });
     }
     const removeList = () => {
@@ -150,4 +145,5 @@ export const displayProject = (project) => {
         }
     }
     displayProjectItems();
+    addNewItem();
 }
