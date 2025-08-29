@@ -1,8 +1,10 @@
 import { Item } from "./items";
 import { projectList } from "./projects";
+import trashcan from "../img/trash-can-outline.svg";
+import note from "../img/note-plus-outline.svg";
 
 const main = document.querySelector("main");
-const content = document.querySelector(".content");
+export const content = document.querySelector(".content");
 
 const createDialog = function() {
     const itemDialog = document.createElement("dialog");
@@ -109,25 +111,31 @@ export const displayProject = (project) => {
         const projectItemChecked = document.createElement("li");
         projectItemChecked.textContent = "Completed: " + item.checked;
         const projectItemDelete = document.createElement("button");
-        projectItemDelete.textContent = "Remove";
+        const removeItemIcon = document.createElement("img");
+        removeItemIcon.classList.add("remove-project-item-icon");
+        removeItemIcon.src = trashcan;
+        projectItemDelete.appendChild(removeItemIcon);
         projectItemText.append(projectItemTitle, projectItemDesc, projectItemDate, projectItemPriority, projectItemNotes, projectItemChecked);
         projectItem.append(projectItemText, projectItemDelete)
         projectCard.appendChild(projectItem);
-        projectItemDelete.addEventListener("click", () => {
-            console.log("click");
+        projectItemDelete.onclick = () => {
+            console.log("Deleted.");
             console.log(item);
             const itemToRemove = project.items.indexOf(item);
             project.items.splice(itemToRemove, 1);
             console.log(project);
             projectCard.removeChild(projectItem);
-        });
+        }
     });
     }
     const projectTop = document.createElement("div");
     projectTop.classList.add("project-top");
     const itemButton = document.createElement("button");
     itemButton.classList.add("project-item-button");
-    itemButton.textContent = "Add";
+    const itemButtonImage = document.createElement("img");
+    itemButtonImage.classList.add("project-item-button-image");
+    itemButtonImage.src = note;
+    itemButton.appendChild(itemButtonImage);
     projectTop.append(projectTitle, itemButton);
     content.replaceChildren(projectTop, projectCard);
     const addNewItem = () => {

@@ -1,6 +1,7 @@
 class Project {
     constructor(title) {
         this.title = title,
+        this.dataID = self.crypto.randomUUID();
         this.items = []
     };
 }
