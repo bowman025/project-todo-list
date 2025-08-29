@@ -92,22 +92,35 @@ export const displayProject = (project) => {
     projectTitle.textContent = project.title;
     const displayProjectItems = () => {
     project.items.forEach(item => {
-        const projectItem = document.createElement("ul");
+        const projectItem = document.createElement("div");
         projectItem.classList.add("project-item", `project-item-${project.items.indexOf(item)+1}`);
+        const projectItemText = document.createElement("ul");
+        projectItemText.classList.add("project-item-text", `project-item-${project.items.indexOf(item)+1}`)
         const projectItemTitle = document.createElement("li");
         projectItemTitle.textContent = "Title: " + item.title;
         const projectItemDesc = document.createElement("li");
         projectItemDesc.textContent = "Description: " + item.description;
-        const ProjectItemDate = document.createElement("li");
-        ProjectItemDate.textContent = "Due: " + item.dueDate;
+        const projectItemDate = document.createElement("li");
+        projectItemDate.textContent = "Due: " + item.dueDate;
         const projectItemPriority = document.createElement("li");
         projectItemPriority.textContent = "Priority: " + item.priority;
         const projectItemNotes = document.createElement("li");
         projectItemNotes.textContent = "Notes: " + item.notes;
-        const ProjectItemChecked = document.createElement("li");
-        ProjectItemChecked.textContent = "Completed: " + item.checked;
-        projectItem.append(projectItemTitle, projectItemDesc, ProjectItemDate, projectItemPriority, projectItemNotes, ProjectItemChecked);
+        const projectItemChecked = document.createElement("li");
+        projectItemChecked.textContent = "Completed: " + item.checked;
+        const projectItemDelete = document.createElement("button");
+        projectItemDelete.textContent = "Remove";
+        projectItemText.append(projectItemTitle, projectItemDesc, projectItemDate, projectItemPriority, projectItemNotes, projectItemChecked);
+        projectItem.append(projectItemText, projectItemDelete)
         projectCard.appendChild(projectItem);
+        projectItemDelete.addEventListener("click", () => {
+            console.log("click");
+            console.log(item);
+            const itemToRemove = project.items.indexOf(item);
+            project.items.splice(itemToRemove, 1);
+            console.log(project);
+            projectCard.removeChild(projectItem);
+        });
     });
     }
     const projectTop = document.createElement("div");

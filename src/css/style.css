@@ -172,14 +172,16 @@ ul {
   background-color: var(--secondary-border-color);
 }
 
-.project-item-button:hover {
+.project-item-button:hover,
+.project-item > button:hover {
   cursor: pointer;
   background-color: var(--border-color);
   transform: scale(1.02);
 }
 
 .project-item,
-.project-item-button {
+.project-item-button,
+.project-item > button {
   border: 1px solid var(--border-color);
   border-radius: 10px;
 }
@@ -191,16 +193,32 @@ ul {
 
 .project-item {
   flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   max-width: 400px;
   min-width: 200px;
   margin: 10px;
   padding: 20px;
+  background-color: var(--primary-bg-color);
   transition: transform 300ms ease-out;
 }
 
 .project-item:hover {
-  background-color: var(--primary-bg-color);
+  background-color: var(--secondary-bg-color);
   transform: scale(1.02);
+}
+
+.project-item-text {
+  margin: 0;
+  padding: 0;
+}
+
+.project-item > button {
+  align-self: flex-end;
+  padding: 6px 10px;
+  color: var(--font-color);
+  background-color: var(--secondary-border-color);
 }
 
 .new-item-dialog {
