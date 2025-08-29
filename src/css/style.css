@@ -58,6 +58,7 @@ ul {
 .sidebar {
   position: sticky;
   top: 50;
+  overflow: auto;
   min-width: 200px;
   max-width: 300px;
   flex: 1 1 auto;
@@ -86,13 +87,36 @@ ul {
   justify-content: space-between;
 }
 
-.side-input {
-  display: flex;
-  margin-bottom: 20px;
+.side-items {
+  margin: 10px 5px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--font-color);
+  background-color: var(--primary-bg-color);
+  transition: transform 300ms ease-out;
+}
+
+.side-items:hover {
+  transform: scale(1.06);
+  background-color: var(--secondary-bg-color);
+}
+
+.side-item {
+  flex-grow: 1;
+  padding: 10px;
+  border: none;
+  color: var(--font-color);
+  background-color: transparent;
+  transition: transform 300ms ease-out;
+  text-align: start;
+}
+
+.side-item:hover {
+  cursor: pointer;
 }
 
 .remove-side-item {
-  margin-left: 5px;
+  margin: 10px;
   padding: 5px;
   align-self: center;
   border: 1px solid var(--border-color);
@@ -105,18 +129,13 @@ ul {
 .remove-side-item:hover {
   cursor: pointer;
   background-color: var(--border-color);
-  transform: scale(1.02);
+  transform: scale(1.08);
 }
 
 .remove-side-item-icon {
   width: 22px;
 }
 
-.side-item {
-  flex-grow: 1;
-}
-
-.side-item,
 #side-input-box,
 .side-input-button {
   margin: 10px 5px;
@@ -128,16 +147,19 @@ ul {
   transition: transform 300ms ease-out;
 }
 
-.side-item:hover {
-  cursor: pointer;
-  background-color: var(--secondary-bg-color);
-  transform: scale(1.06);
+.side-input {
+  display: flex;
+  margin-bottom: 20px;
 }
 
 #side-input-box {
   flex: 1 1 auto;
   min-width: 100px;
   max-width: 260px;
+}
+
+#side-input-box:hover {
+  background-color: var(--secondary-bg-color);
 }
 
 #side-input-box:focus {
@@ -152,7 +174,7 @@ ul {
 .side-input-button:hover {
   cursor: pointer;
   background-color: var(--border-color);
-  transform: scale(1.02);
+  transform: scale(1.08);
 }
 
 .side-input-image {
@@ -211,7 +233,7 @@ ul {
 .project-item > button:hover {
   cursor: pointer;
   background-color: var(--border-color);
-  transform: scale(1.02);
+  transform: scale(1.08);
 }
 
 .project-item-button-image {
@@ -245,7 +267,7 @@ ul {
 
 .project-item:hover {
   background-color: var(--secondary-bg-color);
-  transform: scale(1.02);
+  transform: scale(1.06);
 }
 
 .project-item-text {

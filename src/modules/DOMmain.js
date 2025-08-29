@@ -4,7 +4,7 @@ import trashcan from "../img/trash-can-outline.svg";
 import note from "../img/note-plus-outline.svg";
 
 const main = document.querySelector("main");
-export const content = document.querySelector(".content");
+const content = document.querySelector(".content");
 
 const createDialog = function() {
     const itemDialog = document.createElement("dialog");
@@ -85,7 +85,7 @@ const createDialog = function() {
     return [itemDialog, itemForm, button];
 }
 
-export const displayProject = (project) => {
+const displayProject = (project) => {
     const [newDialog, newForm, newButton] = createDialog();
     const projectCard = document.createElement("div");
     projectCard.classList.add("project-card");
@@ -130,6 +130,7 @@ export const displayProject = (project) => {
     }
     const projectTop = document.createElement("div");
     projectTop.classList.add("project-top");
+    projectTop.setAttribute("id", `${project.dataID}`);
     const itemButton = document.createElement("button");
     itemButton.classList.add("project-item-button");
     const itemButtonImage = document.createElement("img");
@@ -171,3 +172,5 @@ export const displayProject = (project) => {
     displayProjectItems();
     addNewItem();
 }
+
+export { content, displayProject };

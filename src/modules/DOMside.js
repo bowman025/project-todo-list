@@ -1,7 +1,7 @@
 import { displayProject, content } from "./DOMmain.js";
 import { addProject, projectList } from "./projects.js";
 import trashcan from "../img/trash-can-outline.svg";
-import folder from "../img/folder-plus-outline.svg";
+import enter from "../img/arrow-collapse-left.svg";
 
 const sideList = document.querySelector(".side-list");
 
@@ -29,12 +29,14 @@ const displayList = (projectList) => {
             const projectToRemove = projectList.indexOf(project);
             projectList.splice(projectToRemove, 1);
             sideList.removeChild(item);
-            while(content.firstChild) {
-                content.removeChild(content.firstChild);
+            if(content.firstChild.getAttribute("id") === project.dataID) {
+                while(content.firstChild) {
+                    content.removeChild(content.firstChild);
+                }
+                console.log("Removed.");
+                console.log(projectList);
             }
-            console.log("Removed.");
-            console.log(projectList);
-        }
+            }
     });
 }
 
@@ -57,7 +59,7 @@ const addProjectToList = () => {
     projectInputButton.setAttribute("type", "submit");
     const projectInputImage = document.createElement("img");
     projectInputImage.classList.add("side-input-image");
-    projectInputImage.src = folder;
+    projectInputImage.src = enter;
     projectInputButton.appendChild(projectInputImage);
     const projectInput = document.createElement("form");
     projectInput.classList.add("side-input");
