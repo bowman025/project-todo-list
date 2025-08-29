@@ -23,11 +23,9 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  width: 100vw;
   height: 100vh;
   position: relative;
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
   background-color: var(--primary-bg-color);
   color: var(--font-color);
 }
@@ -58,6 +56,11 @@ ul {
 }
 
 .sidebar {
+  position: sticky;
+  top: 50;
+  min-width: 200px;
+  max-width: 300px;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -65,6 +68,7 @@ ul {
 }
 
 .header {
+  flex-shrink: 1;
   margin-bottom: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid var(--border-color);
@@ -79,8 +83,6 @@ ul {
 
 .side-input {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
   margin-bottom: 20px;
 }
 
@@ -102,6 +104,12 @@ ul {
   transform: scale(1.08);
 }
 
+#side-input-box {
+  flex: 1 1 auto;
+  min-width: 100px;
+  max-width: 260px;
+}
+
 #side-input-box:focus {
   outline:  none;
   transform: scale(1.05);
@@ -118,11 +126,11 @@ ul {
 }
 
 .footer {
+  flex-shrink: 1;
   width: 100%;
   padding-top: 10px;
   border-top: 1px solid var(--border-color);
   text-align: center;
-  
 }
 
 .footer-text {
@@ -134,6 +142,10 @@ ul {
 }
 
 .main {
+  position: relative;
+  top: 0;
+  overflow: auto;
+  flex: 1 1 auto;
   display: flex;
   padding: 20px;
 }
@@ -144,8 +156,26 @@ ul {
   flex-direction: column;
 }
 
+.project-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
 .project-title {
   margin-bottom: 20px;
+}
+
+.project-item-button {
+  padding: 12px 20px;
+  color: var(--font-color);
+  background-color: var(--secondary-border-color);
+}
+
+.project-item-button:hover {
+  cursor: pointer;
+  background-color: var(--border-color);
+  transform: scale(1.02);
 }
 
 .project-item,
@@ -154,28 +184,22 @@ ul {
   border-radius: 10px;
 }
 
+.project-card {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .project-item {
+  flex: 1 1 auto;
+  max-width: 400px;
+  min-width: 200px;
+  margin: 10px;
   padding: 20px;
-  margin-bottom: 20px;
   transition: transform 300ms ease-out;
 }
 
 .project-item:hover {
   background-color: var(--primary-bg-color);
-  transform: scale(1.02);
-}
-
-.project-item-button {
-  padding: 10px;
-  margin: 0px 20px;
-  align-self: center;
-  color: var(--font-color);
-  background-color: var(--secondary-border-color);
-}
-
-.project-item-button:hover {
-  cursor: pointer;
-  background-color: var(--border-color);
   transform: scale(1.02);
 }
 

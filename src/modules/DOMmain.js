@@ -95,7 +95,7 @@ export const displayProject = (project) => {
         const projectItem = document.createElement("ul");
         projectItem.classList.add("project-item", `project-item-${project.items.indexOf(item)+1}`);
         const projectItemTitle = document.createElement("li");
-        projectItemTitle.textContent = item.title;
+        projectItemTitle.textContent = "Title: " + item.title;
         const projectItemDesc = document.createElement("li");
         projectItemDesc.textContent = "Description: " + item.description;
         const ProjectItemDate = document.createElement("li");
@@ -110,10 +110,13 @@ export const displayProject = (project) => {
         projectCard.appendChild(projectItem);
     });
     }
+    const projectTop = document.createElement("div");
+    projectTop.classList.add("project-top");
     const itemButton = document.createElement("button");
     itemButton.classList.add("project-item-button");
-    itemButton.textContent = "Add New Item";
-    content.replaceChildren(projectTitle, projectCard, itemButton);
+    itemButton.textContent = "Add";
+    projectTop.append(projectTitle, itemButton);
+    content.replaceChildren(projectTop, projectCard);
     const addNewItem = () => {
         itemButton.addEventListener("click", () => {
         content.appendChild(newDialog);
