@@ -1,5 +1,5 @@
-import { Item } from "./items";
-import { projectList } from "./projects";
+import { Item, addItem, removeItem } from "./items";
+import { storeItem, unstoreItem } from "./storage";
 import trashcan from "../img/trash-can-outline.svg";
 import note from "../img/note-plus-outline.svg";
 
@@ -96,6 +96,13 @@ const displayProject = (project) => {
     project.items.forEach(item => {
         const projectItem = document.createElement("div");
         projectItem.classList.add("project-item", `project-item-${project.items.indexOf(item)+1}`);
+        projectItem.addEventListener("click", () => {
+            if(projectItem.style.width === "") {
+            projectItem.style.width = "65%";
+            } else {
+            projectItem.style.width = "";
+            }
+        });
         const projectItemText = document.createElement("ul");
         projectItemText.classList.add("project-item-text", `project-item-${project.items.indexOf(item)+1}`)
         const projectItemTitle = document.createElement("li");
@@ -121,16 +128,15 @@ const displayProject = (project) => {
         projectItemDelete.onclick = () => {
             console.log("Deleted.");
             console.log(item);
-            const itemToRemove = project.items.indexOf(item);
-            project.items.splice(itemToRemove, 1);
             console.log(project);
+            removeItem(item, project);
             projectCard.removeChild(projectItem);
         }
     });
     }
     const projectTop = document.createElement("div");
     projectTop.classList.add("project-top");
-    projectTop.setAttribute("id", `${project.dataID}`);
+    projectTop.setAttribute("data-id", `${project.dataID}`);
     const itemButton = document.createElement("button");
     itemButton.classList.add("project-item-button");
     const itemButtonImage = document.createElement("img");
@@ -157,8 +163,8 @@ const displayProject = (project) => {
         document.querySelector("#date").value, 
         document.querySelector("#priority").value, 
         document.querySelector("#notes").value);
-        const index = projectList.indexOf(project);
-        projectList[index].items.push(item);
+        addItem(item, project);
+        storeItem(item);
         removeList();
         displayProjectItems();
         newDialog.close();

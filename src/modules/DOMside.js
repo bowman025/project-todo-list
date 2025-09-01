@@ -1,5 +1,6 @@
 import { displayProject, content } from "./DOMmain.js";
-import { addProject, projectList } from "./projects.js";
+import { projectList, addProject, removeProject } from "./projects.js";
+import { storeProject, unstoreProject } from "./storage.js";
 import trashcan from "../img/trash-can-outline.svg";
 import enter from "../img/arrow-collapse-left.svg";
 
@@ -26,17 +27,17 @@ const displayList = (projectList) => {
         sideList.appendChild(item);
         listItem.onclick = () => displayProject(project);
         removeItem.onclick = () => {
-            const projectToRemove = projectList.indexOf(project);
-            projectList.splice(projectToRemove, 1);
+            unstoreProject(projectList.indexOf(project));
             sideList.removeChild(item);
-            if(content.firstChild.getAttribute("id") === project.dataID) {
+            console.log("Removed.");
+            console.log(projectList);
+            if(content.firstChild === null) return;
+            else if(content.firstChild.getAttribute("data-id") === project.dataID) {
                 while(content.firstChild) {
                     content.removeChild(content.firstChild);
                 }
-                console.log("Removed.");
-                console.log(projectList);
             }
-            }
+        }
     });
 }
 
@@ -70,7 +71,7 @@ const addProjectToList = () => {
         if(projectInputBox.value === "") {
             projectInputBox.value = "New Project";
         }
-        addProject(projectInputBox.value);
+        storeProject(projectInputBox.value);
         projectInputBox.value = "";
         emptyList();
         displayList(projectList);

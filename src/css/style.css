@@ -58,7 +58,6 @@ ul {
 .sidebar {
   position: sticky;
   top: 50;
-  overflow: auto;
   min-width: 200px;
   max-width: 300px;
   flex: 1 1 auto;
@@ -80,6 +79,9 @@ ul {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-border-color) var(--primary-bg-color);
 }
 
 .side-items {
@@ -97,7 +99,7 @@ ul {
 }
 
 .side-items:hover {
-  transform: scale(1.06);
+  transform: scale(1.04);
   background-color: var(--secondary-bg-color);
 }
 
@@ -223,7 +225,17 @@ ul {
   margin-bottom: 20px;
 }
 
+.project-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  overflow: auto;
+  scrollbar-width: auto;
+  scrollbar-color: var(--secondary-border-color) var(--primary-bg-color);
+}
+
 .project-item-button {
+  margin-left: 10px;
   padding: 10px;
   color: var(--font-color);
   background-color: var(--secondary-border-color);
@@ -247,18 +259,12 @@ ul {
   border-radius: 10px;
 }
 
-.project-card {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .project-item {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 400px;
-  min-width: 200px;
+  min-width: 32%;
   margin: 10px;
   padding: 20px;
   background-color: var(--primary-bg-color);
@@ -267,7 +273,7 @@ ul {
 
 .project-item:hover {
   background-color: var(--secondary-bg-color);
-  transform: scale(1.06);
+  transform: scale(1.04);
 }
 
 .project-item-text {
