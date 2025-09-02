@@ -1,6 +1,9 @@
 import { Item, addItem, removeItem } from "./items";
 import trashcan from "../img/trash-can-outline.svg";
 import note from "../img/note-plus-outline.svg";
+import checkboxBlank from "../img/checkbox-blank-outline.svg";
+import checkbox from "../img/checkbox-outline.svg";
+import checkboxMarked from "../img/checkbox-marked-outline.svg";
 
 const main = document.querySelector("main");
 const content = document.querySelector(".content");
@@ -16,37 +19,31 @@ const createDialog = function() {
     div1.classList.add("input");
     const label1 = document.createElement("label");
     label1.setAttribute("for", "title");
-    label1.textContent = "Title: ";
+    label1.textContent = "*Title: ";
     const input1 = document.createElement("input");
     input1.setAttribute("type", "text");
     input1.setAttribute("name", "title");
     input1.setAttribute("id", "title");
+    // REMEMBER TO ACTIVATE THIS REQUIRED FIELD
+    // input1.required = true;
     div1.append(label1, input1);
     const div2 = document.createElement("div");
     div2.classList.add("input");
     const label2 = document.createElement("label");
-    label2.setAttribute("for", "description");
-    label2.textContent = "Description: ";
+    label2.setAttribute("for", "date");
+    label2.textContent = "*Due Date: ";
     const input2 = document.createElement("input");
-    input2.setAttribute("type", "text");
-    input2.setAttribute("name", "description");
-    input2.setAttribute("id", "description");
+    input2.setAttribute("type", "date");
+    input2.setAttribute("name", "date");
+    input2.setAttribute("id", "date");
+    // REMEMBER TO ACTIVATE THIS REQUIRED FIELD
+    // input2.required = true;
     div2.append(label2, input2);
     const div3 = document.createElement("div");
     div3.classList.add("input");
     const label3 = document.createElement("label");
-    label3.setAttribute("for", "date");
-    label3.textContent = "Due Date: ";
-    const input3 = document.createElement("input");
-    input3.setAttribute("type", "date");
-    input3.setAttribute("name", "date");
-    input3.setAttribute("id", "date");
-    div3.append(label3, input3);
-    const div4 = document.createElement("div");
-    div4.classList.add("input");
-    const label4 = document.createElement("label");
-    label4.setAttribute("for", "priority");
-    label4.textContent = "Priority: ";
+    label3.setAttribute("for", "priority");
+    label3.textContent = "Priority: ";
     const select = document.createElement("select");
     select.setAttribute("name", "priority");
     select.setAttribute("id", "priority");
@@ -63,7 +60,17 @@ const createDialog = function() {
     option3.classList.add("option", "option-3");
     option3.textContent = "High";
     select.append(option1, option2, option3);
-    div4.append(label4, select);
+    div3.append(label3, select);
+    const div4 = document.createElement("div");
+    div4.classList.add("input");
+    const label4 = document.createElement("label");
+    label4.setAttribute("for", "description");
+    label4.textContent = "Description: ";
+    const input4 = document.createElement("input");
+    input4.setAttribute("type", "text");
+    input4.setAttribute("name", "description");
+    input4.setAttribute("id", "description");
+    div4.append(label4, input4);
     const div5 = document.createElement("div");
     div5.classList.add("input");
     const label5 = document.createElement("label");
@@ -81,55 +88,77 @@ const createDialog = function() {
     div6.appendChild(button);
     itemForm.append(div1, div2, div3, div4, div5, div6);
     itemDialog.appendChild(itemForm);
-    return [itemDialog, itemForm, button];
+    return [itemDialog, itemForm];
 }
 
 const displayProject = (project) => {
-    const [newDialog, newForm, newButton] = createDialog();
+    const [newDialog, newForm] = createDialog();
     const projectCard = document.createElement("div");
     projectCard.classList.add("project-card");
     const projectTitle = document.createElement("h2");
     projectTitle.classList.add("project-title");
     projectTitle.textContent = project.title;
     const displayProjectItems = () => {
-    project.items.forEach(item => {
-        const projectItem = document.createElement("div");
-        projectItem.classList.add("project-item", `project-item-${project.items.indexOf(item)+1}`);
-        projectItem.addEventListener("click", () => {
-            if(projectItem.style.width === "") {
-            projectItem.style.width = "65%";
-            } else {
-            projectItem.style.width = "";
+        project.items.forEach(item => {
+            const projectItem = document.createElement("div");
+            projectItem.classList.add("project-item", `project-item-${project.items.indexOf(item)+1}`);
+            projectItem.setAttribute("tabindex", "0");
+            const projectItemText = document.createElement("div");
+            projectItemText.classList.add("project-item-text", `project-item-${project.items.indexOf(item)+1}`);
+            const projectItemButtons = document.createElement("div");
+            projectItemButtons.classList.add("project-item-buttons");
+            const projectItemTitle = document.createElement("div");
+            projectItemTitle.textContent = item.title;
+            projectItemTitle.classList.add("project-item-title");
+            const projectItemDate = document.createElement("div");
+            projectItemDate.textContent = "Due: " + item.dueDate;
+            projectItemDate.classList.add("project-item-date");
+            const projectItemPriority = document.createElement("div");
+            projectItemPriority.textContent = "Priority: " + item.priority;
+            projectItemPriority.classList.add("project-item-priority");
+            const projectItemDesc = document.createElement("div");
+            projectItemDesc.textContent = "Description: " + item.description;
+            projectItemDesc.classList.add("project-item-description");
+            const projectItemNotes = document.createElement("div");
+            projectItemNotes.textContent = "Notes: " + item.notes;
+            projectItemNotes.classList.add("project-item-notes");
+            const projectItemChecked = document.createElement("button");
+            projectItemChecked.classList.add("project-item-checked");
+            const projectItemCheckedIcon = document.createElement("img");
+            projectItemCheckedIcon.classList.add("check-project-item-icon");
+            projectItemCheckedIcon.src = checkboxBlank;
+            projectItemChecked.appendChild(projectItemCheckedIcon);
+            const projectItemDelete = document.createElement("button");
+            projectItemDelete.classList.add("project-item-delete");
+            const removeItemIcon = document.createElement("img");
+            removeItemIcon.classList.add("remove-project-item-icon");
+            removeItemIcon.src = trashcan;
+            projectItemDelete.appendChild(removeItemIcon);
+            projectItemText.append(projectItemTitle, projectItemDate, projectItemPriority, projectItemDesc, projectItemNotes);
+            projectItemButtons.append(projectItemChecked, projectItemDelete)
+            projectItem.append(projectItemText, projectItemButtons);
+            projectCard.appendChild(projectItem);
+            projectItemDelete.onclick = () => {
+                console.log("Deleted.");
+                removeItem(item, project);
+                projectCard.removeChild(projectItem);
+            }
+            projectItemChecked.addEventListener("mouseenter", () => {
+                if(projectItemCheckedIcon.src === checkboxBlank) {
+                projectItemCheckedIcon.src = checkbox;
+                } else return;
+            });
+            projectItemChecked.addEventListener("mouseleave", () => {
+                if(projectItemCheckedIcon.src === checkbox) {
+                projectItemCheckedIcon.src = checkboxBlank;
+                } else return;
+            });
+            projectItemChecked.onclick = () => {
+                item.checked = true;
+                projectItemCheckedIcon.src = checkboxMarked;
+                projectItem.classList.add("project-item-done");
             }
         });
-        const projectItemText = document.createElement("ul");
-        projectItemText.classList.add("project-item-text", `project-item-${project.items.indexOf(item)+1}`)
-        const projectItemTitle = document.createElement("li");
-        projectItemTitle.textContent = "Title: " + item.title;
-        const projectItemDesc = document.createElement("li");
-        projectItemDesc.textContent = "Description: " + item.description;
-        const projectItemDate = document.createElement("li");
-        projectItemDate.textContent = "Due: " + item.dueDate;
-        const projectItemPriority = document.createElement("li");
-        projectItemPriority.textContent = "Priority: " + item.priority;
-        const projectItemNotes = document.createElement("li");
-        projectItemNotes.textContent = "Notes: " + item.notes;
-        const projectItemChecked = document.createElement("li");
-        projectItemChecked.textContent = "Completed: " + item.checked;
-        const projectItemDelete = document.createElement("button");
-        const removeItemIcon = document.createElement("img");
-        removeItemIcon.classList.add("remove-project-item-icon");
-        removeItemIcon.src = trashcan;
-        projectItemDelete.appendChild(removeItemIcon);
-        projectItemText.append(projectItemTitle, projectItemDesc, projectItemDate, projectItemPriority, projectItemNotes, projectItemChecked);
-        projectItem.append(projectItemText, projectItemDelete)
-        projectCard.appendChild(projectItem);
-        projectItemDelete.onclick = () => {
-            console.log("Deleted.");
-            removeItem(item, project);
-            projectCard.removeChild(projectItem);
-        }
-    });
     }
     const projectTop = document.createElement("div");
     projectTop.classList.add("project-top");
@@ -144,25 +173,25 @@ const displayProject = (project) => {
     content.replaceChildren(projectTop, projectCard);
     const addNewItem = () => {
         itemButton.addEventListener("click", () => {
-        content.appendChild(newDialog);
-        newDialog.close();
-        newForm.reset();
-        newDialog.showModal();
+            content.appendChild(newDialog);
+            newDialog.close();
+            newForm.reset();
+            newDialog.showModal();
         });
         newDialog.addEventListener("close", (e) => {
-        console.log("Closed.");
+            console.log("Closed.");
         });
-        newButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        const item = new Item(document.querySelector("#title").value, 
-        document.querySelector("#description").value, 
-        document.querySelector("#date").value, 
-        document.querySelector("#priority").value, 
-        document.querySelector("#notes").value);
-        addItem(item, project);
-        removeList();
-        displayProjectItems();
-        newDialog.close();
+        newForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const item = new Item(document.querySelector("#title").value, 
+            document.querySelector("#description").value, 
+            document.querySelector("#date").value, 
+            document.querySelector("#priority").value, 
+            document.querySelector("#notes").value);
+            addItem(item, project);
+            removeList();
+            displayProjectItems();
+            newDialog.close();
         });
     }
     const removeList = () => {

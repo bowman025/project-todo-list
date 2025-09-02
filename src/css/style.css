@@ -202,7 +202,6 @@ ul {
 .main {
   position: relative;
   top: 0;
-  overflow: auto;
   flex: 1 1 auto;
   display: flex;
   padding: 20px;
@@ -228,7 +227,6 @@ ul {
 .project-card {
   display: flex;
   flex-wrap: wrap;
-  align-content: flex-start;
   overflow: auto;
   scrollbar-width: auto;
   scrollbar-color: var(--secondary-border-color) var(--primary-bg-color);
@@ -242,7 +240,8 @@ ul {
 }
 
 .project-item-button:hover,
-.project-item > button:hover {
+.project-item-delete:hover,
+.project-item-checked:hover {
   cursor: pointer;
   background-color: var(--border-color);
   transform: scale(1.08);
@@ -254,17 +253,17 @@ ul {
 
 .project-item,
 .project-item-button,
-.project-item > button {
+.project-item-delete,
+.project-item-checked {
   border: 1px solid var(--border-color);
   border-radius: 10px;
 }
 
 .project-item {
-  flex: 0 1 auto;
+  flex: 1 1 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-width: 32%;
   margin: 10px;
   padding: 20px;
   background-color: var(--primary-bg-color);
@@ -273,23 +272,39 @@ ul {
 
 .project-item:hover {
   background-color: var(--secondary-bg-color);
-  transform: scale(1.04);
+  transform: scale(1.01);
 }
-
 .project-item-text {
-  margin: 0;
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.project-item-title {
+  font-size: 2rem;
 }
 
-.project-item > button {
-  align-self: flex-end;
-  padding: 6px 10px;
+.project-item-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.project-item-delete,
+.project-item-checked {
+  padding: 8px 8px;
   color: var(--font-color);
   background-color: var(--secondary-border-color);
 }
 
+.project-item-delete {
+  margin-left: 12px;
+}
+
 .remove-project-item-icon {
-  width: 25px;
+  width: 30px;
+}
+
+.check-project-item-icon {
+  width: 33px;
 }
 
 .new-item-dialog {
