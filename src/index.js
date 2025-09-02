@@ -1,10 +1,9 @@
 import "./css/style.css";
 import { projectList, populateProjectList } from "./modules/projects.js";
 import { displayList, addProjectToList } from "./modules/DOMside.js";
-import { displayProject, itemDialog } from "./modules/DOMmain.js";
+import { displayProject } from "./modules/DOMmain.js";
 
-populateProjectList(projectList);
-displayList(projectList);
+populateProjectList();
+displayList();
 addProjectToList();
-
-console.log(projectList);
+displayProject(projectList[0]);

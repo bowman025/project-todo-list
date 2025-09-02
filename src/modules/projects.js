@@ -22,7 +22,7 @@ const removeProject = (index) => {
     storeProjectList();
 }
 
-const populateProjectList = (projectList) => {
+const populateProjectList = () => {
     if(localStorage.length === 0 || localStorage.length !== 0 && JSON.parse(localStorage.getItem("Project List")).length === 0) {
     const exampleProject = new Project("My First Project");
     exampleProject.items.push(exampleItemOne, exampleItemTwo);

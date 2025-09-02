@@ -154,7 +154,6 @@ const displayProject = (project) => {
         });
         newButton.addEventListener("click", (e) => {
         e.preventDefault();
-        console.log("click");
         const item = new Item(document.querySelector("#title").value, 
         document.querySelector("#description").value, 
         document.querySelector("#date").value, 

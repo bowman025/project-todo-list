@@ -1,11 +1,11 @@
-import { displayProject, content } from "./DOMmain.js";
+import { content, displayProject } from "./DOMmain.js";
 import { projectList, addProject, removeProject } from "./projects.js";
 import trashcan from "../img/trash-can-outline.svg";
 import enter from "../img/arrow-collapse-left.svg";
 
 const sideList = document.querySelector(".side-list");
 
-const displayList = (projectList) => {
+const displayList = () => {
     const myProjects = document.createElement("h2");
     myProjects.classList.add("side-my-projects");
     myProjects.textContent = "My Projects";
