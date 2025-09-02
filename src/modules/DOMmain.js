@@ -1,5 +1,4 @@
 import { Item, addItem, removeItem } from "./items";
-import { storeItem, unstoreItem } from "./storage";
 import trashcan from "../img/trash-can-outline.svg";
 import note from "../img/note-plus-outline.svg";
 
@@ -127,8 +126,6 @@ const displayProject = (project) => {
         projectCard.appendChild(projectItem);
         projectItemDelete.onclick = () => {
             console.log("Deleted.");
-            console.log(item);
-            console.log(project);
             removeItem(item, project);
             projectCard.removeChild(projectItem);
         }
@@ -164,7 +161,6 @@ const displayProject = (project) => {
         document.querySelector("#priority").value, 
         document.querySelector("#notes").value);
         addItem(item, project);
-        storeItem(item);
         removeList();
         displayProjectItems();
         newDialog.close();

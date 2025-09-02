@@ -1,4 +1,5 @@
 import { projectList } from "./projects";
+import { storeProjectList } from "./storage";
 
 class Item {
     constructor(title, description, dueDate, priority, notes) {
@@ -15,17 +16,14 @@ class Item {
 const addItem = (item, project) => {
     const index = projectList.indexOf(project);
     projectList[index].items.push(item);
+    storeProjectList();
 }
 
 const removeItem = (item, project) => {
     const itemToRemove = project.items.indexOf(item);
     project.items.splice(itemToRemove, 1);
+    storeProjectList();
 }
-
-/* addItem(new Item("Coffee", "Buy that expensive coffee.", "Tomorrow", "Medium", ""), projectList[0]);
-addItem(new Item("Bread", "Need a loaf of bread.", "Today", "High", "Remember to buy whole wheat bread"), projectList[0]);
-addItem(new Item("Workout", "Do a 45 minute rubber band workout.", "Tomorrow", "Medium", "Try the yellow rubber band first."), projectList[1]);
-addItem(new Item("Get a haircut", "Go to the barbershop on the corner and get a new haircut.", "Wednesday", "Low", "Remember to bring that photo to show the hairdresser."), projectList[1]); */
 
 const exampleItemOne = new Item("Coffee", "Buy that expensive coffee.", "Tomorrow", "Medium", "");
 const exampleItemTwo = new Item("Bread", "Need a loaf of bread.", "Today", "High", "Remember to buy whole wheat bread");
