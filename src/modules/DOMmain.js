@@ -1,4 +1,5 @@
-import { Item, addItem, removeItem } from "./items";
+import { Item, addItem, removeItem, toggleItemChecked } from "./items";
+import { storeProjectList } from "./storage.js";
 import trashcan from "../img/trash-can-outline.svg";
 import note from "../img/note-plus-outline.svg";
 import checkboxBlank from "../img/checkbox-blank-outline.svg";
@@ -72,21 +73,12 @@ const createDialog = function() {
     input4.setAttribute("id", "description");
     div4.append(label4, input4);
     const div5 = document.createElement("div");
-    div5.classList.add("input");
-    const label5 = document.createElement("label");
-    label5.setAttribute("for", "notes");
-    label5.textContent = "Notes: ";
-    const input5 = document.createElement("textarea");
-    input5.setAttribute("name", "notes");
-    input5.setAttribute("id", "notes");
-    div5.append(label5, input5);
-    const div6 = document.createElement("div");
-    div6.classList.add("input", "input-submit");
+    div5.classList.add("input", "input-submit");
     const button = document.createElement("button");
     button.classList.add("input-submit-button");
     button.textContent = "Add";
-    div6.appendChild(button);
-    itemForm.append(div1, div2, div3, div4, div5, div6);
+    div5.appendChild(button);
+    itemForm.append(div1, div2, div3, div4, div5);
     itemDialog.appendChild(itemForm);
     return [itemDialog, itemForm];
 }
@@ -99,12 +91,16 @@ const displayProject = (project) => {
     projectTitle.classList.add("project-title");
     projectTitle.textContent = project.title;
     const displayProjectItems = () => {
-        project.items.forEach(item => {
+        project.items.forEach((item, index) => {
             const projectItem = document.createElement("div");
-            projectItem.classList.add("project-item", `project-item-${project.items.indexOf(item)+1}`);
+            projectItem.classList.add("project-item", `project-item-${index}`);
             projectItem.setAttribute("tabindex", "0");
             const projectItemText = document.createElement("div");
-            projectItemText.classList.add("project-item-text", `project-item-${project.items.indexOf(item)+1}`);
+            projectItemText.classList.add("project-item-text");
+            const projectItemTextA = document.createElement("div");
+            projectItemTextA.classList.add("project-item-text-a");
+            const projectItemTextB = document.createElement("div");
+            projectItemTextB.classList.add("project-item-text-b");
             const projectItemButtons = document.createElement("div");
             projectItemButtons.classList.add("project-item-buttons");
             const projectItemTitle = document.createElement("div");
@@ -119,14 +115,21 @@ const displayProject = (project) => {
             const projectItemDesc = document.createElement("div");
             projectItemDesc.textContent = "Description: " + item.description;
             projectItemDesc.classList.add("project-item-description");
-            const projectItemNotes = document.createElement("div");
-            projectItemNotes.textContent = "Notes: " + item.notes;
+            const projectItemNotes = document.createElement("textarea");
+            projectItemNotes.textContent = item.notes;
             projectItemNotes.classList.add("project-item-notes");
+            projectItemNotes.setAttribute("name", "notes");
+            projectItemNotes.setAttribute("id", `note-${index}`);
+            projectItemNotes.setAttribute("rows", "5");
+            projectItemNotes.setAttribute("cols", "30");
+            const projectItemNotesLabel = document.createElement("label");
+            projectItemNotesLabel.classList.add("project-item-notes-label");
+            projectItemNotesLabel.setAttribute("for", `note-${index}`);
+            projectItemNotesLabel.textContent = "Notes:";
             const projectItemChecked = document.createElement("button");
             projectItemChecked.classList.add("project-item-checked");
             const projectItemCheckedIcon = document.createElement("img");
             projectItemCheckedIcon.classList.add("check-project-item-icon");
-            projectItemCheckedIcon.src = checkboxBlank;
             projectItemChecked.appendChild(projectItemCheckedIcon);
             const projectItemDelete = document.createElement("button");
             projectItemDelete.classList.add("project-item-delete");
@@ -134,31 +137,52 @@ const displayProject = (project) => {
             removeItemIcon.classList.add("remove-project-item-icon");
             removeItemIcon.src = trashcan;
             projectItemDelete.appendChild(removeItemIcon);
-            projectItemText.append(projectItemTitle, projectItemDate, projectItemPriority, projectItemDesc, projectItemNotes);
+            projectItemTextA.append(projectItemTitle, projectItemDate, projectItemPriority, projectItemDesc);
+            projectItemTextB.append(projectItemNotesLabel, projectItemNotes);
+            projectItemText.append(projectItemTextA, projectItemTextB);
             projectItemButtons.append(projectItemChecked, projectItemDelete)
             projectItem.append(projectItemText, projectItemButtons);
             projectCard.appendChild(projectItem);
+            if(item.checked === false) {
+            projectItemCheckedIcon.src = checkboxBlank;
+            } else {
+                editCheckedItem(projectItem, projectItemText, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon);
+            }
+            projectItemNotes.onchange = () => {
+                item.notes = projectItemNotes.value;
+                storeProjectList();
+            }
             projectItemDelete.onclick = () => {
                 console.log("Deleted.");
                 removeItem(item, project);
                 projectCard.removeChild(projectItem);
             }
             projectItemChecked.addEventListener("mouseenter", () => {
-                if(projectItemCheckedIcon.src === checkboxBlank) {
+                if(item.checked === false) {
                 projectItemCheckedIcon.src = checkbox;
                 } else return;
             });
             projectItemChecked.addEventListener("mouseleave", () => {
-                if(projectItemCheckedIcon.src === checkbox) {
+                if(item.checked === false) {
                 projectItemCheckedIcon.src = checkboxBlank;
                 } else return;
             });
             projectItemChecked.onclick = () => {
-                item.checked = true;
-                projectItemCheckedIcon.src = checkboxMarked;
-                projectItem.classList.add("project-item-done");
+                if(item.checked === false) {
+                toggleItemChecked(item);
+                storeProjectList();
+                editCheckedItem(projectItem, projectItemText, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon);
+                } else return;
             }
         });
+    }
+    const editCheckedItem = (projectItem, projectItemText, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon) => {
+        projectItemCheckedIcon.src = checkboxMarked;
+        projectItemText.replaceChildren(projectItemTitle);
+        projectItemText.style.textDecoration = "5px line-through solid var(--border-color)";
+        projectItem.style.flexDirection = "row";
+        projectItemButtons.style.flexDirection = "row";
+        projectItemChecked.classList.add("project-item-checked-lock");
     }
     const projectTop = document.createElement("div");
     projectTop.classList.add("project-top");
@@ -186,8 +210,7 @@ const displayProject = (project) => {
             const item = new Item(document.querySelector("#title").value, 
             document.querySelector("#description").value, 
             document.querySelector("#date").value, 
-            document.querySelector("#priority").value, 
-            document.querySelector("#notes").value);
+            document.querySelector("#priority").value);
             addItem(item, project);
             removeList();
             displayProjectItems();
