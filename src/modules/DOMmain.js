@@ -1,5 +1,4 @@
 import { Item, addItem, removeItem, toggleItemChecked } from "./items";
-import { storeProjectList } from "./storage.js";
 import trashcan from "../img/trash-can-outline.svg";
 import note from "../img/note-plus-outline.svg";
 import checkboxBlank from "../img/checkbox-blank-outline.svg";
@@ -91,6 +90,14 @@ const displayProject = (project) => {
     projectTitle.classList.add("project-title");
     projectTitle.textContent = project.title;
     const displayProjectItems = () => {
+        const editCheckedItem = (projectItem, projectItemText, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon) => {
+        projectItemCheckedIcon.src = checkboxMarked;
+        projectItemText.replaceChildren(projectItemTitle);
+        projectItemText.style.textDecoration = "5px line-through solid var(--border-color)";
+        projectItem.style.flexDirection = "row";
+        projectItemButtons.style.flexDirection = "row";
+        projectItemChecked.classList.add("project-item-checked-lock");
+        }
         project.items.forEach((item, index) => {
             const projectItem = document.createElement("div");
             projectItem.classList.add("project-item", `project-item-${index}`);
@@ -150,7 +157,6 @@ const displayProject = (project) => {
             }
             projectItemNotes.onchange = () => {
                 item.notes = projectItemNotes.value;
-                storeProjectList();
             }
             projectItemDelete.onclick = () => {
                 console.log("Deleted.");
@@ -170,19 +176,10 @@ const displayProject = (project) => {
             projectItemChecked.onclick = () => {
                 if(item.checked === false) {
                 toggleItemChecked(item);
-                storeProjectList();
                 editCheckedItem(projectItem, projectItemText, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon);
                 } else return;
             }
         });
-    }
-    const editCheckedItem = (projectItem, projectItemText, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon) => {
-        projectItemCheckedIcon.src = checkboxMarked;
-        projectItemText.replaceChildren(projectItemTitle);
-        projectItemText.style.textDecoration = "5px line-through solid var(--border-color)";
-        projectItem.style.flexDirection = "row";
-        projectItemButtons.style.flexDirection = "row";
-        projectItemChecked.classList.add("project-item-checked-lock");
     }
     const projectTop = document.createElement("div");
     projectTop.classList.add("project-top");
