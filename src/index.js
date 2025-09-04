@@ -1,11 +1,12 @@
 import "./css/style.css";
 import { projectList, populateProjectList } from "./modules/projects.js";
-import { displayList, addProjectToList } from "./modules/DOMside.js";
+import { displayList, displaySecondaryList, addProjectToList } from "./modules/DOMside.js";
 import { displayProject } from "./modules/DOMmain.js";
 import { storeProjectList } from "./modules/storage.js";
 
 populateProjectList();
 displayList();
+displaySecondaryList();
 addProjectToList();
 displayProject(projectList[0]);
 

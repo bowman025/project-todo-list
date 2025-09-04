@@ -91,11 +91,15 @@ const displayProject = (project) => {
     projectTitle.textContent = project.title;
     const displayProjectItems = () => {
         const editCheckedItem = (projectItem, projectItemText, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon) => {
+        projectItem.style.flexDirection = "row";
         projectItemCheckedIcon.src = checkboxMarked;
         projectItemText.replaceChildren(projectItemTitle);
         projectItemText.style.textDecoration = "5px line-through solid var(--border-color)";
-        projectItem.style.flexDirection = "row";
+        projectItemText.style.alignItems = "center";
+        projectItemText.style.margin = "0 0 0 10px";
+        projectItemTitle.style.margin = "0 0 0 6px";
         projectItemButtons.style.flexDirection = "row";
+        projectItemButtons.style.alignItems = "center";
         projectItemChecked.classList.add("project-item-checked-lock");
         }
         project.items.forEach((item, index) => {
@@ -192,6 +196,18 @@ const displayProject = (project) => {
     itemButton.appendChild(itemButtonImage);
     projectTop.append(projectTitle, itemButton);
     content.replaceChildren(projectTop, projectCard);
+/*     if(project.items.length === 0) {
+        const middleButtonDiv = document.createElement("div");
+        middleButtonDiv.classList.add("project-item-middle");
+        const middleButton = document.createElement("button");
+        middleButton.classList.add("project-item-middle-button");
+        const middleButtonImage = document.createElement("img");
+        middleButtonImage.classList.add("project-item-button-image");
+        middleButtonImage.src = note;
+        middleButton.appendChild(middleButtonImage);
+        middleButtonDiv.appendChild(middleButton);
+        projectCard.appendChild(middleButtonDiv);
+    }; */
     const addNewItem = () => {
         itemButton.addEventListener("click", () => {
             content.appendChild(newDialog);
