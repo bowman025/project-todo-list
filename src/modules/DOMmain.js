@@ -1,4 +1,4 @@
-import { Item, addItem, removeItem, removeItemByID, toggleItemChecked } from "./items";
+import { Item, addItem, removeItem, toggleItemChecked } from "./items";
 import trashcan from "../img/trash-can-outline.svg";
 import note from "../img/note-plus-outline.svg";
 import checkboxBlank from "../img/checkbox-blank-outline.svg";
@@ -164,9 +164,7 @@ const displayProject = (project) => {
                 item.notes = projectItemNotes.value;
             }
             projectItemDelete.onclick = () => {
-                console.log("Deleted.");
-                // removeItem(item, project);
-                removeItemByID(projectItem.dataset.id);
+                removeItem(projectItem.dataset.id);
                 projectCard.removeChild(projectItem);
             }
             projectItemChecked.addEventListener("mouseenter", () => {
@@ -196,8 +194,6 @@ const displayProject = (project) => {
     itemButtonImage.classList.add("project-item-button-image");
     itemButtonImage.src = note;
     itemButton.appendChild(itemButtonImage);
-
-    // PRIORITY FEATURE - NEEDS TO BE CHECKED AND INVESTIGATED
     if(projectTitle.textContent === "Low Priority" || projectTitle.textContent === "Medium Priority" || projectTitle.textContent === "High Priority") {
     projectTop.appendChild(projectTitle);    
     } else projectTop.append(projectTitle, itemButton);

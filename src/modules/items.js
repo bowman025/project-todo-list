@@ -17,15 +17,17 @@ const addItem = (item, project) => {
     projectList[index].items.push(item);
 }
 
-const removeItem = (item, project) => {
-    console.log(item.dataID);
-    const itemToRemove = project.items.indexOf(item);
-    project.items.splice(itemToRemove, 1);
-}
-
-const removeItemByID = (itemID) => {
-    
-    console.log(projectList);
+const removeItem = (itemID) => {
+    for(let i = 0; i < projectList.length; i++) {
+        console.log(projectList[i].items);
+        for(let j = 0; j < projectList[i].items.length; j++) {
+            console.log(projectList[i].items[j].dataID);
+            if(projectList[i].items[j].dataID === itemID) {
+                projectList[i].items.splice(j, 1);
+                return;
+            }
+        }
+    }
 }
 
 const toggleItemChecked = (item) => {
@@ -37,4 +39,4 @@ const exampleItemTwo = new Item("Bread", "Need a loaf of bread.", "2025-09-20", 
 const exampleItemThree = new Item("Workout", "Do a 45 minute rubber band workout.", "2025-09-08", "Medium", "Try the yellow rubber band first.");
 const exampleItemFour = new Item("Get a haircut", "Go to the barbershop on the corner and get a new haircut.", "2025-09-07", "Low", "Remember to bring that photo to show the hairdresser.");
 
-export { Item, addItem, removeItem, removeItemByID, toggleItemChecked, exampleItemOne, exampleItemTwo, exampleItemThree, exampleItemFour };
+export { Item, addItem, removeItem, toggleItemChecked, exampleItemOne, exampleItemTwo, exampleItemThree, exampleItemFour };
