@@ -1,5 +1,5 @@
 import { content, displayProject } from "./DOMmain.js";
-import { projectList, addProject, removeProject } from "./projects.js";
+import { projectList, addProject, removeProject, filterPriority } from "./projects.js";
 import trashcan from "../img/trash-can-outline.svg";
 import enter from "../img/arrow-collapse-left.svg";
 import down from "../img/arrow-down-drop-circle-outline.svg";
@@ -10,7 +10,7 @@ const myProjectsDiv = document.querySelector(".side-my");
 const myProjectsTitle = document.querySelector(".side-my-title");
 const myProjectsItems = document.querySelector(".side-my-items");
 
-const displaySecondaryList = () => {
+const displayUpcoming = () => {
     const upcomingTitleDiv = document.createElement("div");
     upcomingTitleDiv.classList.add("side-upcoming-title-div");
     const upcomingTitle = document.createElement("h2");
@@ -47,34 +47,7 @@ const displaySecondaryList = () => {
     const upcomingDiv = document.createElement("div");
     upcomingDiv.classList.add("side-upcoming");
     upcomingDiv.append(upcomingTitleDiv, upcomingItemsDiv);
-    const priority = document.createElement("h2");
-    priority.classList.add("side-priority-title");
-    priority.textContent = "Priority";
-    const high = document.createElement("div");
-    high.classList.add("side-items", "side-items-high");
-    const highBtn = document.createElement("button");
-    highBtn.classList.add("side-item");
-    highBtn.textContent = "High";
-    high.appendChild(highBtn);
-    const medium = document.createElement("div");
-    medium.classList.add("side-items", "side-items-medium");
-    const mediumBtn = document.createElement("button");
-    mediumBtn.classList.add("side-item");
-    mediumBtn.textContent = "Medium";
-    medium.appendChild(mediumBtn);
-    const low = document.createElement("div");
-    low.classList.add("side-items", "side-items-low");
-    const lowBtn = document.createElement("button");
-    lowBtn.classList.add("side-item");
-    lowBtn.textContent = "Low";
-    low.appendChild(lowBtn);
-    const priorityItemsDiv = document.createElement("div");
-    priorityItemsDiv.classList.add("side-items-priority");
-    priorityItemsDiv.append(high, medium, low);
-    const priorityDiv = document.createElement("div");
-    priorityDiv.classList.add("side-priority");
-    priorityDiv.append(priority, priorityItemsDiv);
-    sideList.append(upcomingDiv, priorityDiv);
+    sideList.appendChild(upcomingDiv);
     upcomingButton.onclick = () => {
         if(upcomingItemsDiv.classList.contains("hidden") === true) {
             upcomingItemsDiv.classList.remove("hidden");
@@ -86,15 +59,86 @@ const displaySecondaryList = () => {
             upcomingImg.src = down;
         }
     }
-    priority.onclick = () => {
-        if(priority.classList.contains("hidden") === true) {
-            priority.classList.remove("hidden");
-            priorityItemsDiv.style.display = "block";
+}
+
+const displayPriority = () => {
+    const priorityTitleDiv = document.createElement("div");
+    priorityTitleDiv.classList.add("side-priority-title-div");
+    const priorityTitle = document.createElement("h2");
+    priorityTitle.classList.add("side-priority-title");
+    priorityTitle.textContent = "Priority";
+    const priorityButton = document.createElement("button");
+    priorityButton.classList.add("side-priority-title-button");
+    const priorityImg = document.createElement("img");
+    priorityImg.classList.add("side-priority-title-img");
+    priorityImg.src = up;
+    priorityButton.appendChild(priorityImg);
+    priorityTitleDiv.append(priorityTitle, priorityButton)
+    const high = document.createElement("div");
+    high.classList.add("side-items", "side-items-priority");
+    const highBtn = document.createElement("button");
+    highBtn.classList.add("side-item");
+    highBtn.textContent = "High";
+    highBtn.addEventListener("click", () => {
+        const highPriority = {
+            title: "High Priority",
+            items: filterPriority("High"),
+        }
+        console.log(highPriority);
+        displayProject(highPriority);
+    });
+    high.appendChild(highBtn);
+    const medium = document.createElement("div");
+    medium.classList.add("side-items", "side-items-priority");
+    const mediumBtn = document.createElement("button");
+    mediumBtn.classList.add("side-item");
+    mediumBtn.textContent = "Medium";
+    mediumBtn.addEventListener("click", () => {
+        const mediumPriority = {
+            title: "Medium Priority",
+            items: filterPriority("Medium"),
+        }
+        console.log(mediumPriority);
+        displayProject(mediumPriority);
+    });
+    medium.appendChild(mediumBtn);
+    const low = document.createElement("div");
+    low.classList.add("side-items", "side-items-priority");
+    const lowBtn = document.createElement("button");
+    lowBtn.classList.add("side-item");
+    lowBtn.textContent = "Low";
+    lowBtn.addEventListener("click", () => {
+        const lowPriority = {
+            title: "Low Priority",
+            items: filterPriority("Low"),
+        }
+        console.log(lowPriority);
+        displayProject(lowPriority);
+    });
+    low.appendChild(lowBtn);
+    const priorityItemsDiv = document.createElement("div");
+    priorityItemsDiv.classList.add("side-priority-items-div");
+    priorityItemsDiv.append(high, medium, low)
+    const priorityDiv = document.createElement("div");
+    priorityDiv.classList.add("side-priority");
+    priorityDiv.append(priorityTitleDiv, priorityItemsDiv);
+    sideList.appendChild(priorityDiv);
+    priorityButton.onclick = () => {
+        if(priorityItemsDiv.classList.contains("hidden") === true) {
+            priorityItemsDiv.classList.remove("hidden");
+            priorityItemsDiv.style.display = "";
+            priorityImg.src = up;
         } else {
-            priority.classList.add("hidden");
+            priorityItemsDiv.classList.add("hidden");
             priorityItemsDiv.style.display = "none";
+            priorityImg.src = down;
         }
     }
+}
+
+const displaySecondaryList = () => {
+    displayUpcoming();
+    displayPriority();
 }
 
 const displayList = () => {

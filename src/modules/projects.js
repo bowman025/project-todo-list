@@ -5,7 +5,7 @@ class Project {
         this.title = title,
         this.dataID = self.crypto.randomUUID();
         this.items = []
-    };
+    }
 }
 
 const projectList = [];
@@ -35,4 +35,12 @@ const populateProjectList = () => {
     } else console.log("Can't populate the project list.");
 }
 
-export { projectList, Project, populateProjectList, addProject, removeProject };
+const filterPriority = (value) => {
+    let filteredList = [];
+    for(let i = 0; i < projectList.length; i++) {
+        filteredList = filteredList.concat(projectList[i].items).filter(item => item.priority === value);
+    }
+    return filteredList;
+}
+
+export { projectList, Project, populateProjectList, addProject, removeProject, filterPriority };

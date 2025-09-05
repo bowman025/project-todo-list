@@ -15,3 +15,10 @@ document.addEventListener("visibilitychange", () => {
         storeProjectList();
     } else return;
 });
+
+for (let i = 0; i < 3; i++) { // Outer loop
+  console.log(`Outer loop iteration: ${i}`);
+  for (let j = 0; j < 2; j++) { // Inner loop
+    console.log(`  Inner loop iteration: ${j}`);
+  }
+}

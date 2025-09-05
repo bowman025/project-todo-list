@@ -1,4 +1,4 @@
-import { Item, addItem, removeItem, toggleItemChecked } from "./items";
+import { Item, addItem, removeItem, removeItemByID, toggleItemChecked } from "./items";
 import trashcan from "../img/trash-can-outline.svg";
 import note from "../img/note-plus-outline.svg";
 import checkboxBlank from "../img/checkbox-blank-outline.svg";
@@ -48,15 +48,15 @@ const createDialog = function() {
     select.setAttribute("name", "priority");
     select.setAttribute("id", "priority");
     const option1 = document.createElement("option");
-    option1.setAttribute("value", "low");
+    option1.setAttribute("value", "Low");
     option1.classList.add("option", "option-1");
     option1.textContent = "Low";
     const option2 = document.createElement("option");
-    option2.setAttribute("value", "medium");
+    option2.setAttribute("value", "Medium");
     option2.classList.add("option", "option-2");
     option2.textContent = "Medium";
     const option3 = document.createElement("option");
-    option3.setAttribute("value", "high");
+    option3.setAttribute("value", "High");
     option3.classList.add("option", "option-3");
     option3.textContent = "High";
     select.append(option1, option2, option3);
@@ -106,6 +106,7 @@ const displayProject = (project) => {
             const projectItem = document.createElement("div");
             projectItem.classList.add("project-item", `project-item-${index}`);
             projectItem.setAttribute("tabindex", "0");
+            projectItem.dataset.id = item.dataID;
             const projectItemText = document.createElement("div");
             projectItemText.classList.add("project-item-text");
             const projectItemTextA = document.createElement("div");
@@ -164,7 +165,8 @@ const displayProject = (project) => {
             }
             projectItemDelete.onclick = () => {
                 console.log("Deleted.");
-                removeItem(item, project);
+                // removeItem(item, project);
+                removeItemByID(projectItem.dataset.id);
                 projectCard.removeChild(projectItem);
             }
             projectItemChecked.addEventListener("mouseenter", () => {
@@ -194,20 +196,13 @@ const displayProject = (project) => {
     itemButtonImage.classList.add("project-item-button-image");
     itemButtonImage.src = note;
     itemButton.appendChild(itemButtonImage);
-    projectTop.append(projectTitle, itemButton);
+
+    // PRIORITY FEATURE - NEEDS TO BE CHECKED AND INVESTIGATED
+    if(projectTitle.textContent === "Low Priority" || projectTitle.textContent === "Medium Priority" || projectTitle.textContent === "High Priority") {
+    projectTop.appendChild(projectTitle);    
+    } else projectTop.append(projectTitle, itemButton);
+
     content.replaceChildren(projectTop, projectCard);
-/*     if(project.items.length === 0) {
-        const middleButtonDiv = document.createElement("div");
-        middleButtonDiv.classList.add("project-item-middle");
-        const middleButton = document.createElement("button");
-        middleButton.classList.add("project-item-middle-button");
-        const middleButtonImage = document.createElement("img");
-        middleButtonImage.classList.add("project-item-button-image");
-        middleButtonImage.src = note;
-        middleButton.appendChild(middleButtonImage);
-        middleButtonDiv.appendChild(middleButton);
-        projectCard.appendChild(middleButtonDiv);
-    }; */
     const addNewItem = () => {
         itemButton.addEventListener("click", () => {
             content.appendChild(newDialog);

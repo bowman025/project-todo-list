@@ -169,7 +169,8 @@ ul {
 }
 
 .side-input-button,
-.side-upcoming-title-button {
+.side-upcoming-title-button,
+.side-priority-title-button {
   flex-shrink: 0;
   padding: 5px;
   width: 40px;
@@ -181,17 +182,25 @@ ul {
 }
 
 .side-input-button:hover,
-.side-upcoming-title-button:hover {
+.side-upcoming-title-button:hover,
+.side-priority-title-button:hover {
   cursor: pointer;
   background-color: var(--border-color);
   transform: scale(1.08);
 }
 
-.side-upcoming-title-div {
+.side-upcoming-title-div,
+.side-priority-title-div {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 6px;
+}
+
+.side-upcoming-title-div:hover,
+.side-priority-title-div:hover {
+  background-color: var(--secondary-bg-color);
+  border-radius: 10px;
 }
 
 .footer {
