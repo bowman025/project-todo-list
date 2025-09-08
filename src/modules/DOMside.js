@@ -35,6 +35,14 @@ const displayUpcoming = () => {
     tomorrowBtn.classList.add("side-item");
     tomorrowBtn.textContent = "Tomorrow";
     tomorrow.appendChild(tomorrowBtn);
+
+    const nextXDays = document.createElement("div");
+    nextXDays.classList.add("side-items", "side-items-upcoming");
+    const nextXDaysBtn = document.createElement("button");
+    nextXDaysBtn.classList.add("side-item");
+    nextXDaysBtn.textContent = "Next 7 Days";
+    nextXDays.appendChild(nextXDaysBtn);
+
     const overdue = document.createElement("div");
     overdue.classList.add("side-items", "side-items-upcoming");
     const overdueBtn = document.createElement("button");
@@ -43,7 +51,7 @@ const displayUpcoming = () => {
     overdue.appendChild(overdueBtn);
     const upcomingItemsDiv = document.createElement("div");
     upcomingItemsDiv.classList.add("side-upcoming-items-div");
-    upcomingItemsDiv.append(today, tomorrow, overdue)
+    upcomingItemsDiv.append(today, tomorrow, nextXDays, overdue)
     const upcomingDiv = document.createElement("div");
     upcomingDiv.classList.add("side-upcoming");
     upcomingDiv.append(upcomingTitleDiv, upcomingItemsDiv);

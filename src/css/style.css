@@ -197,12 +197,6 @@ ul {
   padding: 6px;
 }
 
-.side-upcoming-title-div:hover,
-.side-priority-title-div:hover {
-  background-color: var(--secondary-bg-color);
-  border-radius: 10px;
-}
-
 .footer {
   flex-shrink: 1;
   width: 100%;
@@ -311,6 +305,7 @@ ul {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
 }
 
 .project-item-title {
@@ -321,7 +316,8 @@ ul {
 .project-item-notes {
   color: var(--font-color);
   background-color: var(--primary-bg-color);
-  padding: 10px;
+  margin: 0;
+  padding-left: 10px;
   border: none;
   border-radius: 10px;
   max-width: 750px;
@@ -334,15 +330,15 @@ ul {
 }
 
 .project-item-notes-label {
-  padding: 10px;
+  padding-left: 10px;
 }
 
 .project-item-buttons {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: flex-end;
-  margin: 10px;
+  /* align-items: flex-end; */
+  margin: 20px;
 }
 
 .project-item-delete,
