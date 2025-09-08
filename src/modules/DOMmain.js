@@ -118,12 +118,43 @@ const displayProject = (project) => {
             const projectItemTitle = document.createElement("div");
             projectItemTitle.textContent = item.title;
             projectItemTitle.classList.add("project-item-title");
+            projectItemTitle.contentEditable = "plaintext-only";
             const projectItemDate = document.createElement("div");
             projectItemDate.textContent = "Due: " + item.dueDate;
             projectItemDate.classList.add("project-item-date");
             const projectItemPriority = document.createElement("div");
-            projectItemPriority.textContent = "Priority: " + item.priority;
             projectItemPriority.classList.add("project-item-priority");
+            const projectItemPriorityLabel = document.createElement("label");
+            projectItemPriorityLabel.setAttribute("for", `priority-${item.dataID}`);
+            projectItemPriorityLabel.textContent = "Priority: ";
+            const projectItemPrioritySelect = document.createElement("select");
+            projectItemPrioritySelect.setAttribute("name", `priority-${item.dataID}`);
+            projectItemPrioritySelect.setAttribute("id", `priority-${item.dataID}`);
+            projectItemPrioritySelect.classList.add("project-item-priority-select");
+            const option1 = document.createElement("option");
+            option1.setAttribute("value", "Low");
+            option1.classList.add("project-item-priority-option", "project-item-priority-option-1");
+            option1.textContent = "Low";
+            if(item.priority === option1.textContent) {
+                option1.setAttribute("selected", true);
+            }
+            const option2 = document.createElement("option");
+            option2.setAttribute("value", "Medium");
+            option2.classList.add("project-item-priority-option", "project-item-priority-option-2");
+            option2.textContent = "Medium";
+            if(item.priority === option2.textContent) {
+                option2.setAttribute("selected", true);
+            }
+            const option3 = document.createElement("option");
+            option3.setAttribute("value", "High");
+            option3.classList.add("project-item-priority-option", "project-item-priority-option-3");
+            option3.textContent = "High";
+            if(item.priority === option3.textContent) {
+                option3.setAttribute("selected", true);
+            }
+            projectItemPrioritySelect.append(option1, option2, option3);
+            projectItemPriority.append(projectItemPriorityLabel, projectItemPrioritySelect);
+
             const projectItemDesc = document.createElement("div");
             projectItemDesc.textContent = "Description: " + item.description;
             projectItemDesc.classList.add("project-item-description");
@@ -160,6 +191,13 @@ const displayProject = (project) => {
             } else {
                 editCheckedItem(projectItem, projectItemText, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon);
             }
+            projectItemTitle.onblur = () => {
+                item.title = projectItemTitle.textContent;
+            }
+            projectItemPrioritySelect.onchange = () => {
+                item.priority = projectItemPrioritySelect.value;
+            }
+
             projectItemNotes.onchange = () => {
                 item.notes = projectItemNotes.value;
             }

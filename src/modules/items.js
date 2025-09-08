@@ -34,9 +34,15 @@ const toggleItemChecked = (item) => {
     item.checked = !item.checked;
 }
 
-const exampleItemOne = new Item("Coffee", "Buy that expensive coffee.", "2025-10-05", "Medium", "");
-const exampleItemTwo = new Item("Bread", "Need a loaf of bread.", "2025-09-20", "High", "Remember to buy whole wheat bread");
-const exampleItemThree = new Item("Workout", "Do a 45 minute rubber band workout.", "2025-09-08", "Medium", "Try the yellow rubber band first.");
-const exampleItemFour = new Item("Get a haircut", "Go to the barbershop on the corner and get a new haircut.", "2025-09-07", "Low", "Remember to bring that photo to show the hairdresser.");
+const today = new Date();
+const tomorrow = new Date(today);
+tomorrow.setDate(tomorrow.getDate() + 1);
+const inSevenDays = new Date(today);
+inSevenDays.setDate(inSevenDays.getDate() + 7);
+
+const exampleItemOne = new Item("Coffee", "Buy that expensive coffee.", today.toDateString(), "Medium", "");
+const exampleItemTwo = new Item("Bread", "Need a loaf of bread.", today.toDateString(), "High", "Remember to buy whole wheat bread");
+const exampleItemThree = new Item("Workout", "Do a 45 minute rubber band workout.", tomorrow.toDateString(), "Medium", "Try the yellow rubber band first.");
+const exampleItemFour = new Item("Get a haircut", "Go to the barbershop on the corner and get a new haircut.", inSevenDays.toDateString(), "Low", "Remember to bring that photo to show the hairdresser.");
 
 export { Item, addItem, removeItem, toggleItemChecked, exampleItemOne, exampleItemTwo, exampleItemThree, exampleItemFour };

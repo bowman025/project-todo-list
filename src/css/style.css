@@ -62,9 +62,7 @@ ul {
 .sidebar {
   position: sticky;
   top: 50;
-  min-width: 200px;
-  max-width: 300px;
-  flex: 1 1 auto;
+  width: 300px;
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -298,6 +296,7 @@ ul {
 .project-item-text-a {
   flex-grow: 1;
   max-width: 40%;
+  min-width: 180px;
   margin-right: 10px;
 }
 
@@ -310,12 +309,46 @@ ul {
 
 .project-item-title {
   font-size: 2rem;
-  margin-bottom: 10px;
+  margin: 0 0 10px -5px;
+  padding: 0 5px;
+}
+
+.project-item-title:hover {
+  background-color: var(--primary-bg-color);
+  border-radius: 10px;
+}
+
+.project-item-title:focus {
+  background-color: var(--primary-bg-color);
+  outline: 1px solid var(--border-color);
+  border-radius: 10px;
+}
+
+.project-item-priority-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-left: 8px;
+  background-color: transparent;
+  color: var(--font-color);
+  border: none;
+  border-radius: 4px;
+}
+
+.project-item-priority-select:hover {
+  appearance: auto;
+  background-color: var(--primary-bg-color);
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+.project-item-priority-select:focus {
+    outline: 1px solid var(--border-color);
 }
 
 .project-item-notes {
   color: var(--font-color);
-  background-color: var(--primary-bg-color);
+  background-color: transparent;
   margin: 0;
   padding-left: 10px;
   border: none;
@@ -325,7 +358,12 @@ ul {
   resize: none;
 }
 
+.project-item-notes:hover {
+  background-color: var(--primary-bg-color);
+}
+
 .project-item-notes:focus {
+  background-color: var(--primary-bg-color);
   outline: 1px solid var(--border-color);
 }
 
@@ -337,7 +375,6 @@ ul {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  /* align-items: flex-end; */
   margin: 20px;
 }
 
