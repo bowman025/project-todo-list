@@ -86,6 +86,10 @@ ul {
   scrollbar-color: var(--secondary-border-color) var(--primary-bg-color);
 }
 
+.side-my-title {
+  padding-left: 6px;
+}
+
 .side-items {
   display: flex;
   justify-content: space-between;
@@ -232,6 +236,25 @@ ul {
   margin-bottom: 20px;
 }
 
+.project-title {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 2rem;
+  border-radius: 10px;
+}
+
+.project-title:hover,
+.project-title:focus {
+  cursor: text;
+  outline: 1px solid var(--border-color);
+}
+
+.project-title-not-editable:hover,
+.project-title-not-editable:focus {
+  cursor: default;
+  outline: none;
+}
+
 .project-card {
   display: flex;
   flex-wrap: wrap;
@@ -324,11 +347,16 @@ ul {
   border-radius: 10px;
 }
 
+.project-item-title-not-editable:hover {
+  cursor: default;
+  background-color: transparent;
+}
+
 .project-item-priority-select {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  padding-left: 8px;
+  padding: 0 8px;
   background-color: transparent;
   color: var(--font-color);
   border: none;

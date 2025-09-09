@@ -36,11 +36,19 @@ const populateProjectList = () => {
 }
 
 const filterPriority = (value) => {
-    let filteredList = [];
+    let filteredPriorityList = [];
     for(let i = 0; i < projectList.length; i++) {
-        filteredList = filteredList.concat(projectList[i].items).filter(item => item.priority === value);
+        filteredPriorityList = filteredPriorityList.concat(projectList[i].items).filter(item => item.priority === value);
     }
-    return filteredList;
+    return filteredPriorityList;
 }
 
-export { projectList, Project, populateProjectList, addProject, removeProject, filterPriority };
+const filterDate = (value) => {
+    let filteredDateList = [];
+    for(let i = 0; i < projectList.length; i++) {
+        filteredDateList = filteredDateList.concat(projectList[i].items.filter(item => item.dueDate === value));
+    }
+    return filteredDateList;
+}
+
+export { projectList, Project, populateProjectList, addProject, removeProject, filterPriority, filterDate };

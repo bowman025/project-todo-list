@@ -1,4 +1,5 @@
 import { Item, addItem, removeItem, toggleItemChecked } from "./items";
+import { displayList } from "./DOMside";
 import trashcan from "../img/trash-can-outline.svg";
 import note from "../img/note-plus-outline.svg";
 import checkboxBlank from "../img/checkbox-blank-outline.svg";
@@ -47,6 +48,8 @@ const createDialog = function() {
     const select = document.createElement("select");
     select.setAttribute("name", "priority");
     select.setAttribute("id", "priority");
+    // LOW OPTION IS AUTOMATICALLY SELECTED SO SETTING REQUIRED TO TRUE DOESN'T DO ANYTHING UNLESS I ADD A LABEL OR SOMETHING TO MAKE THE DEFAULT EMPTY INSTEAD OF IT BEING ONE OF THE OPTIONS
+    select.required = true;
     const option1 = document.createElement("option");
     option1.setAttribute("value", "Low");
     option1.classList.add("option", "option-1");
@@ -89,6 +92,10 @@ const displayProject = (project) => {
     const projectTitle = document.createElement("h2");
     projectTitle.classList.add("project-title");
     projectTitle.textContent = project.title;
+    if(projectTitle.textContent === "High Priority" || projectTitle.textContent === "Medium Priority" || projectTitle.textContent === "Low Priority"|| projectTitle.textContent === "Due Today" || projectTitle.textContent === "Due Tomorrow" || projectTitle.textContent === "Due in Two Days" || projectTitle.textContent === "Overdue") {
+        projectTitle.contentEditable = "false";
+        projectTitle.classList.add("project-title-not-editable");
+    } else projectTitle.contentEditable = "plaintext-only";
     const displayProjectItems = () => {
         const editCheckedItem = (projectItem, projectItemText, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon) => {
         projectItem.style.flexDirection = "row";
@@ -98,6 +105,8 @@ const displayProject = (project) => {
         projectItemText.style.alignItems = "center";
         projectItemText.style.margin = "0 0 0 10px";
         projectItemTitle.style.margin = "0 0 0 6px";
+        projectItemTitle.contentEditable = "false";
+        projectItemTitle.classList.add("project-item-title-not-editable")
         projectItemButtons.style.flexDirection = "row";
         projectItemButtons.style.alignItems = "center";
         projectItemChecked.classList.add("project-item-checked-lock");
@@ -154,7 +163,6 @@ const displayProject = (project) => {
             }
             projectItemPrioritySelect.append(option1, option2, option3);
             projectItemPriority.append(projectItemPriorityLabel, projectItemPrioritySelect);
-
             const projectItemDesc = document.createElement("div");
             projectItemDesc.textContent = "Description: " + item.description;
             projectItemDesc.classList.add("project-item-description");
@@ -190,6 +198,10 @@ const displayProject = (project) => {
             projectItemCheckedIcon.src = checkboxBlank;
             } else {
                 editCheckedItem(projectItem, projectItemText, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon);
+            }
+            projectTitle.onblur = () => {
+                project.title = projectTitle.textContent;
+                // displayList();
             }
             projectItemTitle.onblur = () => {
                 item.title = projectItemTitle.textContent;
@@ -232,7 +244,7 @@ const displayProject = (project) => {
     itemButtonImage.classList.add("project-item-button-image");
     itemButtonImage.src = note;
     itemButton.appendChild(itemButtonImage);
-    if(projectTitle.textContent === "Low Priority" || projectTitle.textContent === "Medium Priority" || projectTitle.textContent === "High Priority") {
+    if(projectTitle.textContent === "Low Priority" || projectTitle.textContent === "Medium Priority" || projectTitle.textContent === "High Priority" || projectTitle.textContent === "Due Today" || projectTitle.textContent === "Due Tomorrow" || projectTitle.textContent === "Due in Two Days" || projectTitle.textContent === "Overdue") {
     projectTop.appendChild(projectTitle);    
     } else projectTop.append(projectTitle, itemButton);
 
@@ -257,6 +269,7 @@ const displayProject = (project) => {
             removeList();
             displayProjectItems();
             newDialog.close();
+            // console.log(new Date(document.querySelector("#date").value)).toDateString();
         });
     }
     const removeList = () => {

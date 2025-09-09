@@ -1,5 +1,6 @@
 import { content, displayProject } from "./DOMmain.js";
-import { projectList, addProject, removeProject, filterPriority } from "./projects.js";
+import { projectList, addProject, removeProject, filterPriority, filterDate } from "./projects.js";
+import { today, tomorrow, dayAfterTomorrow } from "./items.js";
 import trashcan from "../img/trash-can-outline.svg";
 import enter from "../img/arrow-collapse-left.svg";
 import down from "../img/arrow-down-drop-circle-outline.svg";
@@ -22,36 +23,61 @@ const displayUpcoming = () => {
     upcomingImg.classList.add("side-upcoming-title-img");
     upcomingImg.src = up;
     upcomingButton.appendChild(upcomingImg);
-    upcomingTitleDiv.append(upcomingTitle, upcomingButton)
-    const today = document.createElement("div");
-    today.classList.add("side-items", "side-items-upcoming");
+    upcomingTitleDiv.append(upcomingTitle, upcomingButton);
+    const todayDiv = document.createElement("div");
+    todayDiv.classList.add("side-items", "side-items-upcoming");
     const todayBtn = document.createElement("button");
     todayBtn.classList.add("side-item");
     todayBtn.textContent = "Today";
-    today.appendChild(todayBtn);
-    const tomorrow = document.createElement("div");
-    tomorrow.classList.add("side-items", "side-items-upcoming");
+    todayBtn.addEventListener("click", () => {
+        const todayDate = {
+            title: "Due Today",
+            items: filterDate(today.toDateString()),
+        }
+        console.log(todayDate);
+        displayProject(todayDate);
+    });
+    todayDiv.appendChild(todayBtn);
+    const tomorrowDiv = document.createElement("div");
+    tomorrowDiv.classList.add("side-items", "side-items-upcoming");
     const tomorrowBtn = document.createElement("button");
     tomorrowBtn.classList.add("side-item");
     tomorrowBtn.textContent = "Tomorrow";
-    tomorrow.appendChild(tomorrowBtn);
-
-    const nextXDays = document.createElement("div");
-    nextXDays.classList.add("side-items", "side-items-upcoming");
-    const nextXDaysBtn = document.createElement("button");
-    nextXDaysBtn.classList.add("side-item");
-    nextXDaysBtn.textContent = "Next 7 Days";
-    nextXDays.appendChild(nextXDaysBtn);
-
+    tomorrowBtn.addEventListener("click", () => {
+        const tomorrowDate = {
+            title: "Due Tomorrow",
+            items: filterDate(tomorrow.toDateString()),
+        }
+        console.log(tomorrowDate);
+        displayProject(tomorrowDate);
+    });
+    tomorrowDiv.appendChild(tomorrowBtn);
+    const dayAfterTomorrowDiv = document.createElement("div");
+    dayAfterTomorrowDiv.classList.add("side-items", "side-items-upcoming");
+    const dayAfterTomorrowBtn = document.createElement("button");
+    dayAfterTomorrowBtn.classList.add("side-item");
+    dayAfterTomorrowBtn.textContent = "In Two Days";
+    dayAfterTomorrowBtn.addEventListener("click", () => {
+        const dayAfterTomorrowDate = {
+            title: "Due in Two Days",
+            items: filterDate(dayAfterTomorrow.toDateString()),
+        }
+        console.log(dayAfterTomorrowDate);
+        displayProject(dayAfterTomorrowDate);
+    });
+    dayAfterTomorrowDiv.appendChild(dayAfterTomorrowBtn);
     const overdue = document.createElement("div");
     overdue.classList.add("side-items", "side-items-upcoming");
     const overdueBtn = document.createElement("button");
     overdueBtn.classList.add("side-item");
+    overdueBtn.classList.add("side-item-overdue");
     overdueBtn.textContent = "Overdue";
+
     overdue.appendChild(overdueBtn);
+
     const upcomingItemsDiv = document.createElement("div");
     upcomingItemsDiv.classList.add("side-upcoming-items-div");
-    upcomingItemsDiv.append(today, tomorrow, nextXDays, overdue)
+    upcomingItemsDiv.append(todayDiv, tomorrowDiv, dayAfterTomorrowDiv, overdue)
     const upcomingDiv = document.createElement("div");
     upcomingDiv.classList.add("side-upcoming");
     upcomingDiv.append(upcomingTitleDiv, upcomingItemsDiv);
