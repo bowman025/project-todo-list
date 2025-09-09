@@ -374,6 +374,27 @@ ul {
     outline: 1px solid var(--border-color);
 }
 
+.project-item-description {
+  display: inline-block;
+  width: 100%;
+  margin: -4px;
+}
+
+.project-item-description-input,
+.project-item-description-label {
+  padding: 0 4px;
+}
+
+.project-item-description-input {
+  color: var(--font-color);
+  background-color: transparent;
+  margin: 0;
+  border: none;
+  border-radius: 10px;
+  width: 100%;
+  resize: none;
+}
+
 .project-item-notes {
   color: var(--font-color);
   background-color: transparent;
@@ -386,11 +407,13 @@ ul {
   resize: none;
 }
 
-.project-item-notes:hover {
+.project-item-notes:hover,
+.project-item-description-input:hover {
   background-color: var(--primary-bg-color);
 }
 
-.project-item-notes:focus {
+.project-item-notes:focus,
+.project-item-description-input:focus {
   background-color: var(--primary-bg-color);
   outline: 1px solid var(--border-color);
 }
@@ -398,6 +421,8 @@ ul {
 .project-item-notes-label {
   padding-left: 10px;
 }
+
+
 
 .project-item-buttons {
   display: flex;

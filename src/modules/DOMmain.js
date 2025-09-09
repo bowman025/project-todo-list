@@ -6,7 +6,6 @@ import checkboxBlank from "../img/checkbox-blank-outline.svg";
 import checkbox from "../img/checkbox-outline.svg";
 import checkboxMarked from "../img/checkbox-marked-outline.svg";
 
-const main = document.querySelector("main");
 const content = document.querySelector(".content");
 
 const createDialog = function() {
@@ -164,8 +163,17 @@ const displayProject = (project) => {
             projectItemPrioritySelect.append(option1, option2, option3);
             projectItemPriority.append(projectItemPriorityLabel, projectItemPrioritySelect);
             const projectItemDesc = document.createElement("div");
-            projectItemDesc.textContent = "Description: " + item.description;
             projectItemDesc.classList.add("project-item-description");
+            const projectItemDescLabel = document.createElement("label");
+            projectItemDescLabel.classList.add("project-item-description-label");
+            projectItemDescLabel.setAttribute("for", `description-${index}`);
+            projectItemDescLabel.textContent = "Description:";
+            const projectItemDescInput = document.createElement("textarea");
+            projectItemDescInput.classList.add("project-item-description-input");
+            projectItemDescInput.textContent = item.description;
+            projectItemDescInput.setAttribute("name", "description");
+            projectItemDescInput.setAttribute("id", `description-${index}`);
+            projectItemDesc.append(projectItemDescLabel, projectItemDescInput);
             const projectItemNotes = document.createElement("textarea");
             projectItemNotes.textContent = item.notes;
             projectItemNotes.classList.add("project-item-notes");
@@ -201,7 +209,9 @@ const displayProject = (project) => {
             }
             projectTitle.onblur = () => {
                 project.title = projectTitle.textContent;
-                // displayList();
+                const myProjectsItems = document.querySelector(".side-my-items");
+                myProjectsItems.replaceChildren();
+                displayList();
             }
             projectItemTitle.onblur = () => {
                 item.title = projectItemTitle.textContent;
@@ -212,6 +222,9 @@ const displayProject = (project) => {
 
             projectItemNotes.onchange = () => {
                 item.notes = projectItemNotes.value;
+            }
+            projectItemDescInput.onchange = () => {
+                item.description = projectItemDescInput.value;
             }
             projectItemDelete.onclick = () => {
                 removeItem(projectItem.dataset.id);
