@@ -263,13 +263,12 @@ const displayProject = (project) => {
             e.preventDefault();
             const item = new Item(document.querySelector("#title").value, 
             document.querySelector("#description").value, 
-            document.querySelector("#date").value, 
+            new Date(document.querySelector("#date").value),
             document.querySelector("#priority").value);
             addItem(item, project);
             removeList();
             displayProjectItems();
             newDialog.close();
-            // console.log(new Date(document.querySelector("#date").value)).toDateString();
         });
     }
     const removeList = () => {

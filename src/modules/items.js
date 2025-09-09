@@ -4,7 +4,7 @@ class Item {
     constructor(title, description, dueDate, priority, notes) {
         this.title = title,
         this.description = description,
-        this.dueDate = new Date(dueDate).toDateString(),
+        this.dueDate = dueDate.toDateString(),
         this.priority = priority,
         this.notes = notes,
         this.checked = false,

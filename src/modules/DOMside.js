@@ -1,5 +1,5 @@
 import { content, displayProject } from "./DOMmain.js";
-import { projectList, addProject, removeProject, filterPriority, filterDate } from "./projects.js";
+import { projectList, addProject, removeProject, filterPriority, filterDate, filterOverdue } from "./projects.js";
 import { today, tomorrow, dayAfterTomorrow } from "./items.js";
 import trashcan from "../img/trash-can-outline.svg";
 import enter from "../img/arrow-collapse-left.svg";
@@ -72,9 +72,15 @@ const displayUpcoming = () => {
     overdueBtn.classList.add("side-item");
     overdueBtn.classList.add("side-item-overdue");
     overdueBtn.textContent = "Overdue";
-
+    overdueBtn.addEventListener("click", () => {
+        const overdueDate = {
+            title: "Overdue",
+            items: filterOverdue(),
+        }
+        console.log(overdueDate);
+        displayProject(overdueDate);
+    });
     overdue.appendChild(overdueBtn);
-
     const upcomingItemsDiv = document.createElement("div");
     upcomingItemsDiv.classList.add("side-upcoming-items-div");
     upcomingItemsDiv.append(todayDiv, tomorrowDiv, dayAfterTomorrowDiv, overdue)

@@ -51,4 +51,13 @@ const filterDate = (value) => {
     return filteredDateList;
 }
 
-export { projectList, Project, populateProjectList, addProject, removeProject, filterPriority, filterDate };
+const filterOverdue = () => {
+    const today = new Date().toDateString();
+    let filteredOverdueList = [];
+    for(let i = 0; i < projectList.length; i++) {
+       filteredOverdueList = filteredOverdueList.concat(projectList[i].items.filter(item => Date.parse(item.dueDate) < Date.parse(today)));
+    }
+    return filteredOverdueList;
+}
+
+export { projectList, Project, populateProjectList, addProject, removeProject, filterPriority, filterDate, filterOverdue };
