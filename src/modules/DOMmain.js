@@ -96,18 +96,19 @@ const displayProject = (project) => {
         projectTitle.classList.add("project-title-not-editable");
     } else projectTitle.contentEditable = "plaintext-only";
     const displayProjectItems = () => {
-        const editCheckedItem = (projectItem, projectItemText, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon) => {
+        const editCheckedItem = (projectItem, projectItemContent, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon) => {
         projectItem.style.flexDirection = "row";
         projectItemCheckedIcon.src = checkboxMarked;
-        projectItemText.replaceChildren(projectItemTitle);
-        projectItemText.style.textDecoration = "5px line-through solid var(--border-color)";
-        projectItemText.style.alignItems = "center";
-        projectItemText.style.margin = "0 0 0 10px";
-        projectItemTitle.style.margin = "0 0 0 6px";
+        projectItemContent.replaceChildren(projectItemTitle);
+        projectItemContent.style.textDecoration = "5px line-through solid var(--border-color)";
+        projectItemContent.style.alignItems = "center";
+        projectItemContent.style.margin = "0";
+        projectItemTitle.style.margin = "0";
         projectItemTitle.contentEditable = "false";
         projectItemTitle.classList.add("project-item-title-not-editable")
         projectItemButtons.style.flexDirection = "row";
         projectItemButtons.style.alignItems = "center";
+        projectItemButtons.style.margin = "0 5px 0 0"
         projectItemChecked.classList.add("project-item-checked-lock");
         }
         project.items.forEach((item, index) => {
@@ -115,6 +116,12 @@ const displayProject = (project) => {
             projectItem.classList.add("project-item", `project-item-${index}`);
             projectItem.setAttribute("tabindex", "0");
             projectItem.dataset.id = item.dataID;
+            const projectItemContent = document.createElement("div");
+            projectItemContent.classList.add("project-item-content");
+            const projectItemTitle = document.createElement("div");
+            projectItemTitle.textContent = item.title;
+            projectItemTitle.classList.add("project-item-title");
+            projectItemTitle.contentEditable = "plaintext-only";
             const projectItemText = document.createElement("div");
             projectItemText.classList.add("project-item-text");
             const projectItemTextA = document.createElement("div");
@@ -123,13 +130,17 @@ const displayProject = (project) => {
             projectItemTextB.classList.add("project-item-text-b");
             const projectItemButtons = document.createElement("div");
             projectItemButtons.classList.add("project-item-buttons");
-            const projectItemTitle = document.createElement("div");
-            projectItemTitle.textContent = item.title;
-            projectItemTitle.classList.add("project-item-title");
-            projectItemTitle.contentEditable = "plaintext-only";
             const projectItemDate = document.createElement("div");
-            projectItemDate.textContent = "Due: " + item.dueDate;
             projectItemDate.classList.add("project-item-date");
+            const projectItemDateLabel = document.createElement("label");
+            projectItemDateLabel.setAttribute("for", `date-${item.dataID}`);
+            projectItemDateLabel.textContent = "Due: " + item.dueDate;
+            const projectItemDateCalendar = document.createElement("input");
+            projectItemDateCalendar.setAttribute("type", "date");
+            projectItemDateCalendar.setAttribute("name", `date-${item.dataID}`);
+            projectItemDateCalendar.setAttribute("id", `date-${item.dataID}`);
+            projectItemDateCalendar.classList.add("project-item-date-calendar")
+            projectItemDate.append(projectItemDateLabel, projectItemDateCalendar);
             const projectItemPriority = document.createElement("div");
             projectItemPriority.classList.add("project-item-priority");
             const projectItemPriorityLabel = document.createElement("label");
@@ -179,8 +190,6 @@ const displayProject = (project) => {
             projectItemNotes.classList.add("project-item-notes");
             projectItemNotes.setAttribute("name", "notes");
             projectItemNotes.setAttribute("id", `note-${index}`);
-            projectItemNotes.setAttribute("rows", "5");
-            projectItemNotes.setAttribute("cols", "30");
             const projectItemNotesLabel = document.createElement("label");
             projectItemNotesLabel.classList.add("project-item-notes-label");
             projectItemNotesLabel.setAttribute("for", `note-${index}`);
@@ -196,16 +205,17 @@ const displayProject = (project) => {
             removeItemIcon.classList.add("remove-project-item-icon");
             removeItemIcon.src = trashcan;
             projectItemDelete.appendChild(removeItemIcon);
-            projectItemTextA.append(projectItemTitle, projectItemDate, projectItemPriority, projectItemDesc);
+            projectItemTextA.append(projectItemDate, projectItemPriority, projectItemDesc);
             projectItemTextB.append(projectItemNotesLabel, projectItemNotes);
             projectItemText.append(projectItemTextA, projectItemTextB);
-            projectItemButtons.append(projectItemChecked, projectItemDelete)
-            projectItem.append(projectItemText, projectItemButtons);
+            projectItemButtons.append(projectItemChecked, projectItemDelete);
+            projectItemContent.append(projectItemTitle, projectItemText)
+            projectItem.append(projectItemContent, projectItemButtons);
             projectCard.appendChild(projectItem);
             if(item.checked === false) {
             projectItemCheckedIcon.src = checkboxBlank;
             } else {
-                editCheckedItem(projectItem, projectItemText, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon);
+                editCheckedItem(projectItem, projectItemContent, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon);
             }
             projectTitle.onblur = () => {
                 project.title = projectTitle.textContent;
@@ -216,6 +226,15 @@ const displayProject = (project) => {
             projectItemTitle.onblur = () => {
                 item.title = projectItemTitle.textContent;
             }
+
+            projectItemDateCalendar.onchange = () => {
+                const updatedDate = new Date(projectItemDateCalendar.value);
+                const updatedFormattedDate = updatedDate.toDateString();
+                item.dueDate = updatedFormattedDate;
+                projectItemDateLabel.textContent = "Due:" + item.dueDate;
+                projectItemDate.replaceChildren(projectItemDateLabel, projectItemDateCalendar);
+            }
+
             projectItemPrioritySelect.onchange = () => {
                 item.priority = projectItemPrioritySelect.value;
             }
@@ -260,7 +279,6 @@ const displayProject = (project) => {
     if(projectTitle.textContent === "Low Priority" || projectTitle.textContent === "Medium Priority" || projectTitle.textContent === "High Priority" || projectTitle.textContent === "Due Today" || projectTitle.textContent === "Due Tomorrow" || projectTitle.textContent === "Due in Two Days" || projectTitle.textContent === "Overdue") {
     projectTop.appendChild(projectTitle);    
     } else projectTop.append(projectTitle, itemButton);
-
     content.replaceChildren(projectTop, projectCard);
     const addNewItem = () => {
         itemButton.addEventListener("click", () => {
