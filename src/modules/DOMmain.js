@@ -100,7 +100,7 @@ const displayProject = (project) => {
         projectItem.style.flexDirection = "row";
         projectItemCheckedIcon.src = checkboxMarked;
         projectItemContent.replaceChildren(projectItemTitle);
-        projectItemContent.style.textDecoration = "5px line-through solid var(--border-color)";
+        projectItemContent.style.textDecoration = "5px line-through solid var(--primary-border-color)";
         projectItemContent.style.alignItems = "center";
         projectItemContent.style.margin = "0";
         projectItemTitle.style.margin = "0";

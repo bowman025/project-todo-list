@@ -2,7 +2,7 @@
   --primary-bg-color: rgb(30, 30, 30);
   --secondary-bg-color: rgb(36, 36, 36);
   --tertiary-bg-color: rgb(45, 45, 45);
-  --border-color: rgb(133, 33, 33);
+  --primary-border-color: rgb(133, 33, 33);
   --secondary-border-color: rgb(99, 24, 24);
   --font-color: rgb(210, 210, 210);
 }
@@ -66,14 +66,14 @@ ul {
   width: 300px;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid var(--primary-border-color);
   background-color: var(--secondary-bg-color);
 }
 
 .header {
   margin-bottom: 10px;
   padding: 20px 0;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--primary-border-color);
   background-color: var(--primary-bg-color);
   text-align: center;
 }
@@ -97,7 +97,7 @@ ul {
   display: flex;
   justify-content: space-between;
   margin: 10px 5px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--primary-border-color);
   border-radius: 10px;
   color: var(--font-color);
   background-color: var(--tertiary-bg-color);
@@ -124,7 +124,7 @@ ul {
 }
 
 .side-item-overdue:hover {
-  background-color: var(--border-color);
+  background-color: var(--primary-border-color);
   border-radius: 9px;
 }
 
@@ -133,7 +133,7 @@ ul {
   padding: 5px;
   width: 40px;
   align-self: center;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--primary-border-color);
   border-radius: 10px;
   color: var(--font-color);
   background-color: var(--secondary-border-color);
@@ -142,7 +142,7 @@ ul {
 
 .remove-side-item:hover {
   cursor: pointer;
-  background-color: var(--border-color);
+  background-color: var(--primary-border-color);
   transform: scale(1.08);
 }
 
@@ -160,7 +160,7 @@ ul {
   width: 240px;
   margin-right: 8px;
   padding: 10px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--primary-border-color);
   border-radius: 10px;
   color: var(--font-color);
   background-color: var(--primary-bg-color);
@@ -182,7 +182,7 @@ ul {
   flex-shrink: 0;
   padding: 5px;
   width: 40px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--primary-border-color);
   border-radius: 10px;
   color: var(--font-color);
   background-color: var(--secondary-border-color);
@@ -191,14 +191,14 @@ ul {
 
 .side-input-button:hover {
   cursor: pointer;
-  background-color: var(--border-color);
+  background-color: var(--primary-border-color);
 }
 
 .side-my-projects-title-button:hover,
 .side-upcoming-title-button:hover,
 .side-priority-title-button:hover {
   cursor: pointer;
-  background-color: var(--border-color);
+  background-color: var(--primary-border-color);
 }
 
 .side-my-projects-title-div,
@@ -214,7 +214,7 @@ ul {
   flex-shrink: 1;
   width: 100%;
   padding: 10px 0;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--primary-border-color);
   background-color: var(--primary-bg-color);
   text-align: center;
 }
@@ -254,7 +254,7 @@ ul {
 .project-title:hover,
 .project-title:focus {
   cursor: text;
-  outline: 1px solid var(--border-color);
+  outline: 1px solid var(--primary-border-color);
 }
 
 .project-title-not-editable:hover,
@@ -282,7 +282,7 @@ ul {
 .project-item-delete:hover,
 .project-item-checked:hover {
   cursor: pointer;
-  background-color: var(--border-color);
+  background-color: var(--primary-border-color);
   transform: scale(1.08);
 }
 
@@ -294,7 +294,7 @@ ul {
 .project-item-button,
 .project-item-delete,
 .project-item-checked {
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--primary-border-color);
   border-radius: 10px;
 }
 
@@ -335,7 +335,7 @@ ul {
 
 .project-item-title:focus {
   background-color: var(--primary-bg-color);
-  outline: 1px solid var(--border-color);
+  outline: 1px solid var(--primary-border-color);
   border-radius: 10px;
 }
 
@@ -384,7 +384,7 @@ ul {
 
 .project-item-date-calendar:focus,
 .project-item-date-calendar:open {
-  outline: 1px solid var(--border-color);
+  outline: 1px solid var(--primary-border-color);
   background-color: var(--primary-bg-color);
 }
 
@@ -421,7 +421,7 @@ ul {
 }
 
 .project-item-priority-select:focus {
-    outline: 1px solid var(--border-color);
+    outline: 1px solid var(--primary-border-color);
 }
 
 .project-item-description {
@@ -466,7 +466,7 @@ ul {
 .project-item-notes:focus,
 .project-item-description-input:focus {
   background-color: var(--primary-bg-color);
-  outline: 1px solid var(--border-color);
+  outline: 1px solid var(--primary-border-color);
 }
 
 .project-item-notes-label {
@@ -477,7 +477,7 @@ ul {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  margin: 20px;
+  margin: 0 20px 20px 0;
 }
 
 .project-item-delete,
@@ -497,7 +497,7 @@ ul {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--primary-bg-color);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--primary-border-color);
   border-radius: 10px;
 }
 
@@ -520,7 +520,7 @@ ul {
 .new-item-form input:focus,
 .new-item-form select:focus,
 .new-item-form textarea:focus {
-  outline: 1px solid var(--border-color);
+  outline: 1px solid var(--primary-border-color);
 }
 
 .new-item-form > div {
@@ -535,12 +535,12 @@ ul {
   color: var(--font-color);
   background-color: var(--secondary-border-color);
   padding: 8px 32px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--primary-border-color);
   border-radius: 6px;
   text-align: center;
 }
 
 .input-submit-button:hover {
   cursor: pointer;
-  background-color: var(--border-color);
+  background-color: var(--primary-border-color);
 }
