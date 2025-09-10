@@ -7,9 +7,7 @@ import down from "../img/arrow-down-drop-circle-outline.svg";
 import up from "../img/arrow-up-drop-circle-outline.svg";
 
 const sideList = document.querySelector(".side-list");
-const myProjectsDiv = document.querySelector(".side-my");
-const myProjectsTitle = document.querySelector(".side-my-title");
-const myProjectsItems = document.querySelector(".side-my-items");
+const myProjectsItemsDiv = document.querySelector(".side-my-items");
 
 const displayUpcoming = () => {
     const upcomingTitleDiv = document.createElement("div");
@@ -182,6 +180,26 @@ const displaySecondaryList = () => {
 }
 
 const displayList = () => {
+    const myProjectsTitleDiv = document.querySelector(".side-my-projects-title-div");
+    const myProjectsTitle = document.querySelector(".side-my-projects-title");
+    const myProjectsButton = document.createElement("button");
+    myProjectsButton.classList.add("side-my-projects-title-button");
+    const myProjectsImg = document.createElement("img");
+    myProjectsImg.classList.add("side-my-projects-title-img");
+    myProjectsImg.src = up;
+    myProjectsButton.replaceChildren(myProjectsImg);
+    myProjectsTitleDiv.replaceChildren(myProjectsTitle, myProjectsButton);
+    myProjectsButton.onclick = () => {
+        if(myProjectsItemsDiv.classList.contains("hidden") === true) {
+            myProjectsItemsDiv.classList.remove("hidden");
+            myProjectsItemsDiv.style.display = "";
+            myProjectsImg.src = up;
+        } else {
+            myProjectsItemsDiv.classList.add("hidden");
+            myProjectsItemsDiv.style.display = "none";
+            myProjectsImg.src = down;
+        }
+    }
     projectList.forEach(project => {
         const item = document.createElement("div");
         item.classList.add("side-items");
@@ -195,11 +213,11 @@ const displayList = () => {
         removeItemIcon.src = trashcan;
         removeItem.appendChild(removeItemIcon);
         item.append(listItem, removeItem);
-        myProjectsItems.appendChild(item);
+        myProjectsItemsDiv.appendChild(item);
         listItem.onclick = () => displayProject(project);
         removeItem.onclick = () => {
             removeProject(projectList.indexOf(project));
-            myProjectsItems.removeChild(item);
+            myProjectsItemsDiv.removeChild(item);
             console.log("Removed.");
             console.log(projectList);
             if(content.firstChild === null) return;
@@ -215,7 +233,7 @@ const addProjectToList = () => {
     projectInputBox.setAttribute("id", "side-input-box");
     projectInputBox.setAttribute("type", "text");
     projectInputBox.setAttribute("name", "title");
-    projectInputBox.setAttribute("minlength", "4");
+    projectInputBox.setAttribute("minlength", "1");
     projectInputBox.setAttribute("maxlength", "48");
     projectInputBox.setAttribute("placeholder", "New Project");
     const projectInputButton = document.createElement("button");
@@ -236,7 +254,7 @@ const addProjectToList = () => {
         }
         addProject(projectInputBox.value);
         projectInputBox.value = "";
-        myProjectsItems.replaceChildren();
+        myProjectsItemsDiv.replaceChildren();
         displayList(projectList);
         console.log(projectList);
     });

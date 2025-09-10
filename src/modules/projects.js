@@ -3,7 +3,7 @@ import { exampleItemOne, exampleItemTwo, exampleItemThree, exampleItemFour } fro
 class Project {
     constructor(title) {
         this.title = title,
-        this.dataID = self.crypto.randomUUID();
+        this.dataID = self.crypto.randomUUID(),
         this.items = []
     }
 }

@@ -1,6 +1,7 @@
 :root {
-  --primary-bg-color: rgb(33, 33, 33);
-  --secondary-bg-color: rgb(44, 44, 44);
+  --primary-bg-color: rgb(30, 30, 30);
+  --secondary-bg-color: rgb(36, 36, 36);
+  --tertiary-bg-color: rgb(45, 45, 45);
   --border-color: rgb(133, 33, 33);
   --secondary-border-color: rgb(99, 24, 24);
   --font-color: rgb(210, 210, 210);
@@ -65,15 +66,15 @@ ul {
   width: 300px;
   display: flex;
   flex-direction: column;
-  padding: 10px;
   border-right: 1px solid var(--border-color);
+  background-color: var(--secondary-bg-color);
 }
 
 .header {
-  flex-shrink: 1;
   margin-bottom: 10px;
-  padding-bottom: 20px;
+  padding: 20px 0;
   border-bottom: 1px solid var(--border-color);
+  background-color: var(--primary-bg-color);
   text-align: center;
 }
 
@@ -84,6 +85,7 @@ ul {
   overflow: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--secondary-border-color) var(--primary-bg-color);
+  padding: 6px;
 }
 
 .side-my-title {
@@ -91,19 +93,20 @@ ul {
 }
 
 .side-items {
+  flex-grow: 1;
   display: flex;
   justify-content: space-between;
   margin: 10px 5px;
   border: 1px solid var(--border-color);
   border-radius: 10px;
   color: var(--font-color);
-  background-color: var(--primary-bg-color);
+  background-color: var(--tertiary-bg-color);
   transition: transform 300ms ease-out;
 }
 
 .side-items:hover {
   transform: scale(1.04);
-  background-color: var(--secondary-bg-color);
+  background-color: var(--primary-bg-color);
 }
 
 .side-item {
@@ -120,8 +123,12 @@ ul {
   cursor: pointer;
 }
 
+.side-item-overdue:hover {
+  background-color: var(--border-color);
+  border-radius: 9px;
+}
+
 .remove-side-item {
-  flex-shrink: 0;
   margin: 10px;
   padding: 5px;
   width: 40px;
@@ -145,14 +152,13 @@ ul {
 
 .side-input {
   display: flex;
-  margin: 10px 5px 20px;
+  margin: 10px 5px;
+  padding: 6px;
 }
 
 #side-input-box {
-  flex: 1 1 auto;
-  min-width: 100px;
-  max-width: 260px;
-  margin-right: 10px;
+  width: 240px;
+  margin-right: 8px;
   padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 10px;
@@ -162,15 +168,15 @@ ul {
 }
 
 #side-input-box:hover {
-  background-color: var(--secondary-bg-color);
+  background-color: var(--primary-bg-color);
 }
 
 #side-input-box:focus {
   outline:  none;
-  transform: scale(1.05);
 }
 
 .side-input-button,
+.side-my-projects-title-button,
 .side-upcoming-title-button,
 .side-priority-title-button {
   flex-shrink: 0;
@@ -183,14 +189,19 @@ ul {
   transition: transform 300ms ease-out;
 }
 
-.side-input-button:hover,
+.side-input-button:hover {
+  cursor: pointer;
+  background-color: var(--border-color);
+}
+
+.side-my-projects-title-button:hover,
 .side-upcoming-title-button:hover,
 .side-priority-title-button:hover {
   cursor: pointer;
   background-color: var(--border-color);
-  transform: scale(1.08);
 }
 
+.side-my-projects-title-div,
 .side-upcoming-title-div,
 .side-priority-title-div {
   display: flex;
@@ -202,13 +213,10 @@ ul {
 .footer {
   flex-shrink: 1;
   width: 100%;
-  padding-top: 10px;
+  padding: 10px 0;
   border-top: 1px solid var(--border-color);
+  background-color: var(--primary-bg-color);
   text-align: center;
-}
-
-.footer-text {
-  margin-top: 10px;
 }
 
 .footer > p > a {

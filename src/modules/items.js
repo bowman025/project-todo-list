@@ -8,7 +8,7 @@ class Item {
         this.priority = priority,
         this.notes = notes,
         this.checked = false,
-        this.dataID = self.crypto.randomUUID();
+        this.dataID = self.crypto.randomUUID()
     }
 }
 
