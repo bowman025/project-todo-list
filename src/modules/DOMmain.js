@@ -5,6 +5,8 @@ import note from "../img/note-plus-outline.svg";
 import checkboxBlank from "../img/checkbox-blank-outline.svg";
 import checkbox from "../img/checkbox-outline.svg";
 import checkboxMarked from "../img/checkbox-marked-outline.svg";
+import expand from "../img/arrow-expand-horizontal.svg";
+import collapse from "../img/arrow-collapse-horizontal.svg";
 
 const content = document.querySelector(".content");
 
@@ -100,15 +102,16 @@ const displayProject = (project) => {
         projectItem.style.flexDirection = "row";
         projectItemCheckedIcon.src = checkboxMarked;
         projectItemContent.replaceChildren(projectItemTitle);
-        projectItemContent.style.textDecoration = "5px line-through solid var(--primary-border-color)";
+        projectItemContent.style.textDecoration = "4px line-through solid var(--primary-border-color)";
         projectItemContent.style.alignItems = "center";
+        projectItemContent.style.justifyContent = "center";
         projectItemContent.style.margin = "0";
         projectItemTitle.style.margin = "0";
         projectItemTitle.contentEditable = "false";
-        projectItemTitle.classList.add("project-item-title-not-editable")
+        projectItemTitle.classList.add("project-item-title-not-editable");
         projectItemButtons.style.flexDirection = "row";
         projectItemButtons.style.alignItems = "center";
-        projectItemButtons.style.margin = "0 5px 0 0"
+        projectItemButtons.style.margin = "0 5px 0 0";
         projectItemChecked.classList.add("project-item-checked-lock");
         }
         project.items.forEach((item, index) => {
@@ -128,6 +131,7 @@ const displayProject = (project) => {
             projectItemTextA.classList.add("project-item-text-a");
             const projectItemTextB = document.createElement("div");
             projectItemTextB.classList.add("project-item-text-b");
+            projectItemTextB.style.display = "none";
             const projectItemButtons = document.createElement("div");
             projectItemButtons.classList.add("project-item-buttons");
             const projectItemDate = document.createElement("div");
@@ -173,6 +177,7 @@ const displayProject = (project) => {
             }
             projectItemPrioritySelect.append(option1, option2, option3);
             projectItemPriority.append(projectItemPriorityLabel, projectItemPrioritySelect);
+            projectItemPriority.style.display = "none";
             const projectItemDesc = document.createElement("div");
             projectItemDesc.classList.add("project-item-description");
             const projectItemDescLabel = document.createElement("label");
@@ -185,6 +190,7 @@ const displayProject = (project) => {
             projectItemDescInput.setAttribute("name", "description");
             projectItemDescInput.setAttribute("id", `description-${index}`);
             projectItemDesc.append(projectItemDescLabel, projectItemDescInput);
+            projectItemDesc.style.display = "none";
             const projectItemNotes = document.createElement("textarea");
             projectItemNotes.textContent = item.notes;
             projectItemNotes.classList.add("project-item-notes");
@@ -194,6 +200,13 @@ const displayProject = (project) => {
             projectItemNotesLabel.classList.add("project-item-notes-label");
             projectItemNotesLabel.setAttribute("for", `note-${index}`);
             projectItemNotesLabel.textContent = "Notes:";
+            const projectItemVisibility = document.createElement("button");
+            projectItemVisibility.classList.add("project-item-visibility");
+            projectItemVisibility.setAttribute("visible", "no");
+            const projectItemVisibilityIcon = document.createElement("img");
+            projectItemVisibilityIcon.classList.add("check-project-item-icon");
+            projectItemVisibility.appendChild(projectItemVisibilityIcon);
+            projectItemVisibilityIcon.src = expand;
             const projectItemChecked = document.createElement("button");
             projectItemChecked.classList.add("project-item-checked");
             const projectItemCheckedIcon = document.createElement("img");
@@ -208,13 +221,14 @@ const displayProject = (project) => {
             projectItemTextA.append(projectItemDate, projectItemPriority, projectItemDesc);
             projectItemTextB.append(projectItemNotesLabel, projectItemNotes);
             projectItemText.append(projectItemTextA, projectItemTextB);
-            projectItemButtons.append(projectItemChecked, projectItemDelete);
+            projectItemButtons.append(projectItemVisibility, projectItemChecked, projectItemDelete);
             projectItemContent.append(projectItemTitle, projectItemText)
             projectItem.append(projectItemContent, projectItemButtons);
             projectCard.appendChild(projectItem);
             if(item.checked === false) {
             projectItemCheckedIcon.src = checkboxBlank;
             } else {
+                projectItemButtons.replaceChildren(projectItemChecked, projectItemDelete);
                 editCheckedItem(projectItem, projectItemContent, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon);
             }
             projectTitle.onblur = () => {
@@ -226,28 +240,39 @@ const displayProject = (project) => {
             projectItemTitle.onblur = () => {
                 item.title = projectItemTitle.textContent;
             }
-
             projectItemDateCalendar.onchange = () => {
                 const updatedDate = new Date(projectItemDateCalendar.value);
                 const updatedFormattedDate = updatedDate.toDateString();
                 item.dueDate = updatedFormattedDate;
-                projectItemDateLabel.textContent = "Due:" + item.dueDate;
+                projectItemDateLabel.textContent = "Due: " + item.dueDate;
                 projectItemDate.replaceChildren(projectItemDateLabel, projectItemDateCalendar);
             }
-
             projectItemPrioritySelect.onchange = () => {
                 item.priority = projectItemPrioritySelect.value;
             }
-
             projectItemNotes.onchange = () => {
                 item.notes = projectItemNotes.value;
             }
             projectItemDescInput.onchange = () => {
                 item.description = projectItemDescInput.value;
             }
-            projectItemDelete.onclick = () => {
-                removeItem(projectItem.dataset.id);
-                projectCard.removeChild(projectItem);
+            projectItemVisibility.onclick = () => {
+                if(projectItemVisibility.getAttribute("visible") === "no") {
+                projectItemVisibilityIcon.src = collapse;
+                projectItemVisibility.setAttribute("visible", "yes");
+                projectItem.style.flex = "1 1 100%";
+                projectItemPriority.style.removeProperty("display");
+                projectItemDesc.style.removeProperty("display");
+                projectItemTextB.style.removeProperty("display");
+                projectItemButtons.style.flexDirection = "column";
+                } else if(projectItemVisibility.getAttribute("visible") === "yes") { projectItemVisibilityIcon.src = expand;
+                projectItemVisibility.setAttribute("visible", "no");
+                projectItem.style.flex = "";
+                projectItemPriority.style.display = "none";
+                projectItemDesc.style.display = "none";
+                projectItemTextB.style.display = "none";
+                projectItemButtons.style.flexDirection = "row";
+                }
             }
             projectItemChecked.addEventListener("mouseenter", () => {
                 if(item.checked === false) {
@@ -262,8 +287,13 @@ const displayProject = (project) => {
             projectItemChecked.onclick = () => {
                 if(item.checked === false) {
                 toggleItemChecked(item);
+                projectItemButtons.replaceChildren(projectItemChecked, projectItemDelete);
                 editCheckedItem(projectItem, projectItemText, projectItemTitle, projectItemButtons, projectItemChecked, projectItemCheckedIcon);
                 } else return;
+            }
+            projectItemDelete.onclick = () => {
+                removeItem(projectItem.dataset.id);
+                projectCard.removeChild(projectItem);
             }
         });
     }
