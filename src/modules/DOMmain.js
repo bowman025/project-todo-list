@@ -26,8 +26,7 @@ const createDialog = function() {
     input1.setAttribute("type", "text");
     input1.setAttribute("name", "title");
     input1.setAttribute("id", "title");
-    // REMEMBER TO ACTIVATE THIS REQUIRED FIELD
-    // input1.required = true;
+    input1.required = true;
     div1.append(label1, input1);
     const div2 = document.createElement("div");
     div2.classList.add("input");
@@ -38,8 +37,7 @@ const createDialog = function() {
     input2.setAttribute("type", "date");
     input2.setAttribute("name", "date");
     input2.setAttribute("id", "date");
-    // REMEMBER TO ACTIVATE THIS REQUIRED FIELD
-    // input2.required = true;
+    input2.required = true;
     div2.append(label2, input2);
     const div3 = document.createElement("div");
     div3.classList.add("input");
@@ -49,7 +47,6 @@ const createDialog = function() {
     const select = document.createElement("select");
     select.setAttribute("name", "priority");
     select.setAttribute("id", "priority");
-    // LOW OPTION IS AUTOMATICALLY SELECTED SO SETTING REQUIRED TO TRUE DOESN'T DO ANYTHING UNLESS I ADD A LABEL OR SOMETHING TO MAKE THE DEFAULT EMPTY INSTEAD OF IT BEING ONE OF THE OPTIONS
     select.required = true;
     const option1 = document.createElement("option");
     option1.setAttribute("value", "Low");
@@ -237,9 +234,21 @@ const displayProject = (project) => {
                 myProjectsItems.replaceChildren();
                 displayList();
             }
+            projectTitle.addEventListener("keydown", (e) => {
+                if(e.key === "Enter") {
+                    e.preventDefault();
+                    projectTitle.blur();
+                }
+            });
             projectItemTitle.onblur = () => {
                 item.title = projectItemTitle.textContent;
             }
+            projectItemTitle.addEventListener("keydown", (e) => {
+                if(e.key === "Enter") {
+                    e.preventDefault();
+                    projectItemTitle.blur();
+                }
+            });
             projectItemDateCalendar.onchange = () => {
                 const updatedDate = new Date(projectItemDateCalendar.value);
                 const updatedFormattedDate = updatedDate.toDateString();

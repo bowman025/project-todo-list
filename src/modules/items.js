@@ -37,10 +37,13 @@ const tomorrow = new Date(today);
 tomorrow.setDate(tomorrow.getDate() + 1);
 const dayAfterTomorrow = new Date(today);
 dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
+const yesterday = new Date(today);
+yesterday.setDate(yesterday.getDate() - 1);
 
-const exampleItemOne = new Item("Coffee", "Buy that expensive coffee.", today, "Medium", "");
-const exampleItemTwo = new Item("Bread", "Need a loaf of bread.", today, "High", "Remember to buy whole wheat bread");
+const exampleItemOne = new Item("Coffee", "Buy that expensive coffee.", today, "Medium", "There is a new coffee place in the neighborhood. Check it out and see if they happen to have real Turkish coffee.");
+const exampleItemTwo = new Item("Bread", "Need a loaf of bread.", today, "High", "Remember to buy whole wheat bread. Do NOT buy white bread!");
 const exampleItemThree = new Item("Workout", "Do a 45 minute rubber band workout.", tomorrow, "Medium", "Try the yellow rubber band first.");
 const exampleItemFour = new Item("Get a haircut", "Go to the barbershop on the corner and get a new haircut.", dayAfterTomorrow, "Low", "Remember to bring that photo to show the hairdresser.");
+const exampleItemFive = new Item("Take out the trash", "Just do it!", yesterday, "High", "You really need to stop forgetting to do your chores! Make sure the trash is taken out this time. Or else!");
 
-export { Item, addItem, removeItem, toggleItemChecked, exampleItemOne, exampleItemTwo, exampleItemThree, exampleItemFour, today, tomorrow, dayAfterTomorrow };
+export { Item, addItem, removeItem, toggleItemChecked, exampleItemOne, exampleItemTwo, exampleItemThree, exampleItemFour, exampleItemFive, today, tomorrow, dayAfterTomorrow };

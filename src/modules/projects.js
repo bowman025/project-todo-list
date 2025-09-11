@@ -1,4 +1,4 @@
-import { exampleItemOne, exampleItemTwo, exampleItemThree, exampleItemFour } from "./items.js";
+import { exampleItemOne, exampleItemTwo, exampleItemThree, exampleItemFour, exampleItemFive } from "./items.js";
 
 class Project {
     constructor(title) {
@@ -24,7 +24,7 @@ const populateProjectList = () => {
     const exampleProject = new Project("My First Project");
     exampleProject.items.push(exampleItemOne, exampleItemTwo);
     const exampleProjectTwo = new Project("My Second Project");
-    exampleProjectTwo.items.push(exampleItemThree, exampleItemFour);
+    exampleProjectTwo.items.push(exampleItemThree, exampleItemFour, exampleItemFive);
     projectList.push(exampleProject, exampleProjectTwo);
     console.log("Populated project list.");
     } else if(localStorage.length !== 0 && JSON.parse(localStorage.getItem("Project List")).length > 0) {
