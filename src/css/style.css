@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Libertinus+Keyboard&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libertinus+Keyboard&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
 :root {
   --primary-bg-color: rgb(30, 30, 30);
   --secondary-bg-color: rgb(36, 36, 36);
@@ -52,12 +55,39 @@ h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
 }
 
+h2 {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
 h2:hover {
   cursor: default;
 }
 
 ul {
   list-style-type: none;
+}
+
+button {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+label {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+textarea,
+input,
+select,
+option {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .sidebar {
@@ -72,10 +102,17 @@ ul {
 
 .header {
   margin-bottom: 10px;
-  padding: 20px 0;
+  padding: 10px 0;
   border-bottom: 1px solid var(--primary-border-color);
   background-color: var(--primary-bg-color);
   text-align: center;
+  font-family: "Libertinus Keyboard", system-ui;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.header:hover {
+  cursor: default;
 }
 
 .side-list {
@@ -157,7 +194,7 @@ ul {
 }
 
 #side-input-box {
-  width: 240px;
+  width: 230px;
   margin-right: 8px;
   padding: 10px;
   border: 1px solid var(--primary-border-color);
@@ -307,7 +344,6 @@ ul {
 }
 
 .project-item {
-  /* flex: 1 1 100%; */
   display: flex;
   justify-content: space-between;
   margin: 10px;
@@ -327,7 +363,10 @@ ul {
 }
 
 .project-item-title {
-  font-size: 2rem;
+  font-size: 1.8rem;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   margin: 10px 10px 0 10px;
   padding: 0 10px;
 }
@@ -358,7 +397,6 @@ ul {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  /* max-width: 40%; */
   min-width: 180px;
   margin: 0 10px 10px 10px;
 }
@@ -371,7 +409,6 @@ ul {
 }
 
 .project-item-date-calendar {
-  /* position: absolute; */
   border: none;
   border-radius: 4px;
   margin-left: 5px;
@@ -393,7 +430,6 @@ ul {
 }
 
 .project-item-date-calendar::-webkit-calendar-picker-indicator {
-  /* position: relative; */
   padding: 0;
   display: block;
   width: 28px;
